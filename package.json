@@ -8,7 +8,7 @@
     "start": "node app"
   },
   "dependencies": {
-    "express":"*",
+    "express": "*",
     "mongoose": "*",
     "bcryptjs": "*",
     "cors": "*",
@@ -18,5 +18,8 @@
     "passport-jwt": "*"
   },
   "author": "Duy Nguyen",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
 }
