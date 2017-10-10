@@ -1,0 +1,22 @@
+{
+  "name": "jobapp",
+  "version": "1.0.0",
+  "description": "Odd job app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "express":"*",
+    "mongoose": "*",
+    "bcryptjs": "*",
+    "cors": "*",
+    "jsonwebtoken": "*",
+    "body-parser": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "author": "Duy Nguyen",
+  "license": "ISC"
+}
