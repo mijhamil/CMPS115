@@ -8,18 +8,15 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "*",
-    "mongoose": "*",
     "bcryptjs": "*",
-    "cors": "*",
-    "jsonwebtoken": "*",
     "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "^4.10.8",
     "passport": "*",
     "passport-jwt": "*"
   },
   "author": "Duy Nguyen",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^1.12.1"
-  }
+  "license": "ISC"
 }

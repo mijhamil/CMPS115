@@ -1,12 +1,12 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('bode-parser');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 
-// Connect to Database
+// Connect To Database
 mongoose.connect(config.database);
 
 // On Connection
@@ -49,7 +49,11 @@ app.get('/', (req, res) => {
 	res.send('Invalid Endpoint');
 });
 
-// Start server
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'public/index.html'))
+});
+
+// Start Server
 app.listen(port, () => {
-	console.log('Server starter on port '+port);
+	console.log('Server started on port '+port);
 });
