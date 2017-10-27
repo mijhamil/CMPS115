@@ -38,7 +38,7 @@ router.post('/authenticate', (req, res, next) => {
 			if(err) throw err;
 			if(isMatch){
 				// How often user has to sign in (logs them out)
-				const token = jwt.sign(user, config.secret, {
+				const token = jwt.sign({payload:user}, config.secret, {
 					expiresIn: 604800 // 1 week
         });
         // Displays everything back to user (can get rid of some stuff)
