@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
     }
 
     // Validate Email
-    if(!this.validateService.validateEmail(user.email)){
+    if(!this.validateService.validateEmail(user.email.toLowerCase())){
       this.flashMessage.show('Please use a valid @ucsc.edu email', {cssClass: 'alert-danger', timeout: 3000});
       return false;
     }
