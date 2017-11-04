@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
   onRegisterSubmit(){
     const user = {
       name: this.name,
-      email: this.email,
+      email: this.email.toLowerCase(),
       username: this.username,
       password: this.password
     }
@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
     }
 
     // Validate Email
-    if(!this.validateService.validateEmail(user.email.toLowerCase())){
+    if(!this.validateService.validateEmail(user.email)){
       this.flashMessage.show('Please use a valid @ucsc.edu email', {cssClass: 'alert-danger', timeout: 3000});
       return false;
     }
