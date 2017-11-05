@@ -47,7 +47,6 @@ div {
 }
 </style>
 <body>
-  <h3>{{user.username}}</h3>
   <h3>Profile</h3>
   
   <div *ngIf="user">
@@ -61,7 +60,8 @@ div {
       <form action="/action_page.php">
 
         <label for="profilepic">Picture</label>
-        <input type="image" id="profpic" name="picture" placeholder="placeholder.png">
+        <!-- <img src = "default_profile_pic_final.png" alt = "profile picture"> -->
+        <!-- <input type="image" id="profpic" name="picture" src="default_profile_pic_final.png"> -->
 
         <label for="firstname">First</label>
         <input type="text" id="firstname" name="first" placeholder="John" required>
