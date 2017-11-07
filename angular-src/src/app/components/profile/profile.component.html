@@ -47,15 +47,15 @@ div {
 }
 </style>
 <body>
-  <h3>Profile</h3>
-  
+  <h3>Profile Page</h3>
+
   <div *ngIf="user">
     <h2 class="page-header">{{user.name}}</h2>
     <ul class="list-group">
       <li class="list-group-item">Username: {{user.username}}</li>
       <li class="list-group-item">Email: {{user.email}}</li>
     </ul>
-  </div> 
+  </div>
   <div>
       <form action="/action_page.php">
 
@@ -65,24 +65,24 @@ div {
 
         <label for="firstname">First</label>
         <input type="text" id="firstname" name="first" placeholder="John" required>
-    
+
         <label for="lastname">Last</label>
         <input type="text" id="lastname" name="last" placeholder="Doe" requried>
-    
+
         <label for="email">Email</label>
         <input type="text" id="email" name="email" placeholder="john@doe.edu" required>
-    
+
         <label for="skills">Special Skills</label>
 
         <ul class = list-group>
             <input type="text" id="skills" name="skill1" placeholder="Bike repair">
             <input type="text" id="skills" name="skill2" placeholder="Sewing">
-            <input type="text" id="skills" name="skill3" placeholder="Photoshop">                       
+            <input type="text" id="skills" name="skill3" placeholder="Photoshop">
         </ul>
 
         <label for="userbio">Bio</label>
         <textarea type="area" rows="5" cols="50" id="bio" name="bio" placeholder="Who are you? What are you into?"></textarea>
-    
+
         <input type="submit" value="Update">
       </form>
   </div>
