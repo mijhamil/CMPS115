@@ -20,7 +20,7 @@
       "styles": [
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": ["./app/components/dashboard/dashboard.component.js"],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

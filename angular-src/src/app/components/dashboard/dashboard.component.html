@@ -2,23 +2,19 @@
 <html>
 <body>
   <h3>Post a job</h3>
-
   <div>
-    <form (submit)="onPostSubmit()">
+    <form (submit)="onPostSubmit()" action="" method="get">
       <label>Location</label>
       <input type="text" [(ngModel)]="location" name="location" placeholder="Address" class="form-control" required>
 
       <label>Date</label>
-      <input type="date" [(ngModel)]="date" name="date" placeholder="mm/dd/yy" class="form-control" required>
+      <input type="date" [(ngModel)]="date" name="date"  class="form-control" required>
 
       <label>Time</label>
       <input type="time" [(ngModel)]="time" name="time" placeholder = "12:00 PM PST" class="form-control" required>
 
       <label>Pay rate</label>
-      <div class = "input-group">
-      <span class="input-group-addon">$</span>
-      <input type="number" [(ngModel)]="payrate" currency name="payrate" placeholder="20.00" min="0" class="form-control" required>
-      </div>
+      <input type="text" [(ngModel)]="payrate" currency name="payrate" placeholder="$20.00" min="0" class="form-control" id="payrate" onblur="handleChange()" required>
 
       <label>Details</label>
       <textarea type="area" [(ngModel)]="details" name="details" placeholder="What needs to be done..." class="form-control" required></textarea>
@@ -26,6 +22,7 @@
       <input type="submit" class="btn btn-primary" value="Post">
     </form>
   </div>
-
 </body>
+
+
 </html>
