@@ -29,4 +29,12 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
+  onSettingsClick(){
+    this.flashMessage.show('does this show', {
+      cssClass:'alert-success',
+      timeout: 10000
+    });
+    this.router.navigate(['/settings']);
+    return false;
+  }
 }
