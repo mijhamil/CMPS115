@@ -23,6 +23,27 @@ router.post('/register', (req, res, next) => {
   });
 });
 
+// Settings
+router.post('/settings', (req, res, next) => {
+  let user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+    bio: req.body.bio,
+    skills: req.body.skills,
+    image: req.body.image
+  });
+
+  User.editUser(user, (err, user) => {
+    if(err){
+      res.json({success: false, msg:'Failed to edit settings'});
+    } else {
+      res.json({success: true, msg:'Settings saved'});
+    }
+  });
+});
+
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
   const username = req.body.username;
