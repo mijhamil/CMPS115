@@ -25,4 +25,8 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  onSettingsClick(){
+    this.router.navigate(['/settings']);
+  }
+
 }
