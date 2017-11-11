@@ -18,6 +18,18 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  bio: {
+    type: String,
+    required: false
+  },
+  skills: {
+      type: Array,
+      required: false
+  },
+  image: {
+      type: Buffer,
+      required: false
   }
 });
 
