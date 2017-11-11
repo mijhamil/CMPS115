@@ -47,39 +47,29 @@ div {
 }
 
 .profPic {
-    border-radius:10px;
-    background-color: #f2f2f2;
-    padding: 20px;
+    float: none;
+    margin: 0 auto;
+    width: 12%;
+    height: 12%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
 }
 </style>
 <body>
   <h3>Settings</h3>
-  <!-- <div *ngIf="user">
-    <h2 class="page-header">{{user.name}}</h2>
-    <ul class="list-group">
-      <li class="list-group-item">Username: {{user.username}}</li>
-      <li class="list-group-item">Email: {{user.email}}</li>
-    </ul>
-  </div> -->
   <div>
     <form style="padding:10px" ng-controller="updateSettings" action="/action_page.php">
-      <!-- <div class = "form-group" ng-init="userImage = '/angular-src/src/app/components/profile/default_profile_pic_final.png'">
-        <img ng-src="{{userImage}}"></img>
-      </div> -->
        <div class = "form-group">
-        <div class = "profPic"><img src="https://i.imgur.com/6eOlEUB.jpg"/></div>
-        <!-- <div><img src="/angular-src/src/assets/default_profile_pic_final.png"/></div> -->
-        <input type="file" name="profPic" image-with-preview ng-model="image" accept="image/jpeg,image/png" placeholder="/angular-src/src/assets/default_profile_pic_final.png">
+        <img class ="profPic" src="https://i.imgur.com/6eOlEUB.jpg"/>
+        <br>
+        <input style="padding-top:2%" type="file" name="profPic" image-with-preview ng-model="image" accept="image/jpeg,image/png" placeholder="/angular-src/src/assets/default_profile_pic_final.png">
         <!--<span class="error" ng-show="profPic.$error.image">
             Not a JPEG or a PNG!
         </span> -->
         <!-- <img ng-show="image.src" ng-src="{{user.image}}"/> -->
         <!-- <script type="text/javascript" src="/node_modules/ng-image-input-with-preview/dist/ng-image-input-with-preview.js"></script> -->
       </div>
-      <!-- <div class="form-group">
-        <label for="name">Upload Picture</label>
-        <input type="file" class="form-control" placeholder="{{user.picture}}" ng-model="picture">
-      </div> -->
       <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control" placeholder="" ng-model="name" required>
