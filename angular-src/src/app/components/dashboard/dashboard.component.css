@@ -28,6 +28,14 @@ input[type=date], select {
   box-sizing: border-box;
 }
 
+.rb-date-picker.placeholder:focus::before{
+      color: #c7c64f;
+}
+
+input[type=date]::placeholder {
+  color: #c7c64f;
+}
+
 input[type=time], select {
   width: 100%;
   padding: 12px 20px;
