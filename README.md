@@ -26,3 +26,4 @@
 # 4. Create a function in pre path and set route to your new component path
     this.router.navigate(['posts']);
 # 5. Call this function on sumbit or button click to open your new path
+
