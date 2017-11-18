@@ -7,6 +7,7 @@ const config = require('../config/database');
 
 router.post('/newPost', (req, res) => {
   const post = new Post({
+    title: req.body.title,
     location: req.body.location,
     date: req.body.date,
     time: req.body.time,
@@ -32,6 +33,20 @@ router.post('/newPost', (req, res) => {
       res.json({success: true, message: 'Post saved!'});
     }
   });
+});
+
+router.get('/allPosts', (req, res) => {
+  Post.find({}, (err, posts) => {
+    if(err) {
+      res.json({ success: false, message: err });
+    } else {
+      if(!posts) {
+        res.json({ success: false, message: 'No job posts found.'});
+      } else {
+        res.json({success: true, posts: posts})
+      }
+    }
+  }).sort({'_id': -1});
 });
 
 module.exports = router;

@@ -1,0 +1,11 @@
+<h1>All Jobs</h1>
+
+<div  class="panel panel-primary" *ngFor="let post of allPosts">
+  <div class="panel-heading">
+    <h2 class="panel-title">{{post.title}}</h2>
+  </div>
+
+  <div class="panel-body">
+    {{post.details}}
+  </div>
+</div>

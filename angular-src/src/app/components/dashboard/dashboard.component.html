@@ -4,6 +4,9 @@
   <h3>Post a job</h3>
   <div>
     <form (submit)="onPostSubmit()" action="" method="get">
+      <label>Title</label>
+      <input type='text' [(ngModel)]="title" name="title" placeholder="Title" class= "form-control" required>
+
       <label>Location</label>
       <input type="text" [(ngModel)]="location" name="location" placeholder="Address" class="form-control" required>
 

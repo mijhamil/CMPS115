@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService} from '../../services/post.service'
+import { PostService} from '../../services/post.service';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 
@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  title: String;
   location: String;
   date: String;
   time: String;
@@ -26,6 +27,7 @@ export class DashboardComponent implements OnInit {
 
   onPostSubmit() {
     const post = {
+      title: this.title,
       location: this.location,
       date: this.date,
       time: this.time,
@@ -36,6 +38,7 @@ export class DashboardComponent implements OnInit {
     this.postService.newPost(post).subscribe(data => {
       if(data.success) {
         this.flashMessage.show('Job posted!', {cssClass: 'alert-success', timeout: 3000});
+        this.router.navigate(['/posts']);
       }
       else {
         this.flashMessage.show('Job posting failed', {cssClass: 'alert-danger', timeout: 3000});
