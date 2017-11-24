@@ -5,6 +5,7 @@ const Post = require('../models/post');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 
+// Posts a new post to te database
 router.post('/newPost', (req, res) => {
   const post = new Post({
     title: req.body.title,
@@ -35,6 +36,7 @@ router.post('/newPost', (req, res) => {
   });
 });
 
+// Retrieves all posts in the database
 router.get('/allPosts', (req, res) => {
   Post.find({}, (err, posts) => {
     if(err) {

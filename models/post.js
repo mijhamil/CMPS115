@@ -12,7 +12,7 @@ const postSchema = mongoose.Schema({
     required: true
   },
   location: {
-    type: String,
+    type: [mongoose.Schema.Types.Mixed],
     required: true
   },
   date: {
@@ -24,7 +24,7 @@ const postSchema = mongoose.Schema({
     required: true
   },
   payrate: {
-    type: Number,
+    type: String,
     required: true
   },
   details: {
