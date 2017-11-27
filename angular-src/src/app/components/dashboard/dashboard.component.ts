@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   time: String;
   payrate: String;
   details: String;
+  username;
   autocomplete: google.maps.places.Autocomplete;
   center: any;
 
@@ -45,11 +46,12 @@ export class DashboardComponent implements OnInit {
   onPostSubmit() {
     const post = {
       title: this.title,
-      location: this.location,
+      location: JSON.stringify(this.location), // JSON.stringify(this.location),
       date: this.date,
       time: this.time,
       payrate: this.payrate,
-      details: this.details
+      details: this.details,
+      createdBy: this.username
     }
 
     this.postService.newPost(post).subscribe(data => {

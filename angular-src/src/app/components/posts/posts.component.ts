@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService} from '../../services/post.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-posts',
@@ -7,11 +8,13 @@ import { PostService} from '../../services/post.service';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
-  
+
   allPosts;
+  username;
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private authService: AuthService
   ) {
     this.getAllPosts();
   }
@@ -23,6 +26,10 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Get profile username on page load
+   this.authService.getProfile().subscribe(profile => {
+     this.username = profile.user.username; // Used when creating new blog posts and comments
+   });
     this.getAllPosts();
   }
 

@@ -1,6 +1,7 @@
+<br />
 <h1>All Jobs</h1>
-
-<div  class="panel panel-primary" *ngFor="let post of allPosts">
+<hr>
+<!-- <div  class="panel panel-primary" *ngFor="let post of allPosts">
   <div class="panel-heading">
     <h2 class="panel-title">{{post.title}}</h2>
   </div>
@@ -8,4 +9,49 @@
   <div class="panel-body">
     {{post.details}}
   </div>
+</div> -->
+
+
+<!-- Panel Start -->
+<div *ngIf="!newPost">
+  <!-- Panel Outer Layer -->
+  <div class="panel panel-primary" *ngFor="let post of allPosts">
+
+    <!-- Panel Title -->
+    <div class="panel-heading">
+      <h3 class="panel-title"><strong>Title: </strong>{{ post.title }}</h3>
+    </div>
+
+    <!-- Panel Body -->
+    <div class="panel-body">
+      <strong>Details: </strong>{{ post.details }}
+    </div>
+
+    <!-- Panel Footer Start -->
+    <div class="panel-footer">
+      <strong>Location: </strong>{{ post.location }}
+      <br />
+      <strong>Date: </strong>{{ post.date|date:'MM/dd/yyyy' }} <!-- add check for if past date? -->
+      <br />
+      <strong>Time: </strong>{{ post.time }}
+      <br />
+      <strong>Payrate: </strong>{{ post.payrate }}
+      <br />
+      <strong>Posted by: </strong>{{ post.createdBy }}
+      <br />
+
+      <!-- Request Job Button -->
+        <button type="button" name="button" class="btn btn-success" *ngIf="username !== post.username">Request job</button>
+
+      <!-- Edit Button -->
+        <button type="button" name="button" class="btn btn-primary" *ngIf="username == post.username">Edit</button>
+
+        <hr>
+
+    <!-- Panel Footer End -->
+    <!-- Post Comment Box: End -->
+
+  </div>
+  <!-- Panel Outer Layer -->
 </div>
+<!-- Panel End -->

@@ -13,12 +13,17 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostsComponent } from './components/posts/posts.component';
+import { ManagejobsComponent } from './components/managejobs/managejobs.component';
+import { PendingrequestsComponent } from './components/pendingrequests/pendingrequests.component';
+import { InprogressjobsComponent } from './components/inprogressjobs/inprogressjobs.component';
+import { CompletedjobsComponent } from './components/completedjobs/completedjobs.component';
 
 import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
 import {PostService} from './services/post.service'
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
+import { CancelledjobsComponent } from './components/cancelledjobs/cancelledjobs.component';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -26,7 +31,12 @@ const appRoutes: Routes =  [
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  {path:'posts', component: PostsComponent, canActivate:[AuthGuard]}
+  {path:'posts', component: PostsComponent, canActivate:[AuthGuard]},
+  {path:'manage-jobs', component: ManagejobsComponent, canActivate:[AuthGuard]},
+  {path:'pending-requests', component: PendingrequestsComponent, canActivate:[AuthGuard]},
+  {path:'in-progress-jobs', component: InprogressjobsComponent, canActivate:[AuthGuard]},
+  {path:'completed-jobs', component: CompletedjobsComponent, canActivate:[AuthGuard]},
+  {path:'cancelled-jobs', component: CancelledjobsComponent, canActivate:[AuthGuard]},
 ]
 
 @NgModule({
@@ -38,7 +48,12 @@ const appRoutes: Routes =  [
     HomeComponent,
     DashboardComponent,
     ProfileComponent,
-    PostsComponent
+    PostsComponent,
+    ManagejobsComponent,
+    PendingrequestsComponent,
+    InprogressjobsComponent,
+    CompletedjobsComponent,
+    CancelledjobsComponent
   ],
   imports: [
     BrowserModule,
