@@ -26,6 +26,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
   }
 
+  //send a post request to save settings from form
   onSettingsSubmit(){
     const user = {
       name: this.name,
@@ -35,7 +36,14 @@ export class SettingsComponent implements OnInit {
       bio: this.bio
     }
       this.flashMessage.show('onSettingsSubmit() function reached', {cssClass: 'alert-success', timeout: 3000});
+      this.authService.editUser(user).subscribe(data => {
+        if (data.success){
+          this.flashMessage.show('Settings Saved!', {cssClass: 'alert-success', timeout: 3000});
+        }
+        else{
+          this.flashMessage.show('Error. Changes to settings not applied', {cssClass: 'alert-danger', timeout: 3000});
+        }
+      })
   }
  
-
 }

@@ -64,11 +64,11 @@ div {
 <body>
   <h3 style="padding-top:2%">Settings</h3>
   <div>
-    <form (submit)="onSettingsSubmit()" style="padding:10px" ng-controller="updateSettings" action="/action_page.php">
+    <form (submit)="onSettingsSubmit()" style="padding:10px" ng-controller="updateSettings" action="" method="get">
        <div class = "form-group">
         <img class ="profPic" src="https://i.imgur.com/6eOlEUB.jpg"/>
         <br>
-        <input style="padding-top:2%" type="file" name="profPic" image-with-preview ng-model="image" accept="image/jpeg,image/png" placeholder="/angular-src/src/assets/default_profile_pic_final.png">
+        <!-- <input style="padding-top:2%" type="file" name="profPic" image-with-preview ng-model="image" accept="image/jpeg,image/png" placeholder="/angular-src/src/assets/default_profile_pic_final.png"> -->
         <!--<span class="error" ng-show="profPic.$error.image">
             Not a JPEG or a PNG!
         </span> -->
