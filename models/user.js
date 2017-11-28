@@ -26,11 +26,12 @@ const UserSchema = mongoose.Schema({
   skills: {
       type: Array,
       required: false
-  },
-  image: {
-      type: Buffer,
-      required: false
   }
+  // ,
+  // image: {
+  //     type: Buffer,
+  //     required: false
+  // }
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
@@ -54,9 +55,9 @@ module.exports.addUser = function(newUser, callback){
   });
 }
 
-module.exports.editUser = function(user, callback){
-  user.save(callback);
-}
+// module.exports.editUser = function(user, callback){
+//   user.save(callback);
+// }
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
   bcrypt.compare(candidatePassword, hash, (err, isMatch) => {

@@ -27,12 +27,11 @@ router.post('/register', (req, res, next) => {
 router.post('/settings', (req, res, next) => {
   let user = new User({
     name: req.body.name,
-    email: req.body.email,
     username: req.body.username,
     password: req.body.password,
     bio: req.body.bio,
-    skills: req.body.skills,
-    image: req.body.image
+    //skills: req.body.skills,
+    //image: req.body.image
   });
 
   User.editUser(user, (err, user) => {
