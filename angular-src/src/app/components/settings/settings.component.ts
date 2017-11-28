@@ -11,14 +11,14 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 export class SettingsComponent implements OnInit {
   name: String;
   username: String;
-  email: String;
+  // email: String;
   password: String;
   bio: String;
 
   user:Object;
 
   constructor(
-    private flashMessage:FlashMessagesService,    
+    private flashMessage:FlashMessagesService,
     private authService:AuthService,
     private router:Router
   ) { }
@@ -30,7 +30,7 @@ export class SettingsComponent implements OnInit {
   onSettingsSubmit(){
     const user = {
       name: this.name,
-      email: this.email.toLowerCase(),
+      // email: this.email.toLowerCase(),
       username: this.username,
       password: this.password,
       bio: this.bio
@@ -45,5 +45,5 @@ export class SettingsComponent implements OnInit {
         }
       })
   }
- 
+
 }
