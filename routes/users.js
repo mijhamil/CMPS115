@@ -80,7 +80,8 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 // Profile
-router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+// add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
+router.get('/profile', (req, res, next) => {
   User.find({}, (err, users) => {
     if(err) {
       res.json({ success: false, message: err });

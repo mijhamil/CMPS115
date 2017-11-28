@@ -8,9 +8,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user:Object;
-  // username = '';
-  // email = '';
+  //user:Object;
+  username:String;
+  email:String;
+  bio:String;
 
   constructor(
     private authService:AuthService,
@@ -19,9 +20,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
-      this.user = profile.user;
-      // this.username = profile.user.username; // Set username
-      // this.email = profile.user.email; // Set e-mail
+      // this.user = profile.user;
+      this.username = profile.User.username; // Set username
+      this.email = profile.User.Email; // Set e-mail
+      this.bio = profile.User.Bio;
     },
     err => {
       console.log(err);
@@ -29,8 +31,5 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  onSettingsClick(){
-    this.router.navigate(['/settings']);
-  }
 
 }
