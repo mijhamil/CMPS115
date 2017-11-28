@@ -16,8 +16,8 @@ export class SettingsComponent implements OnInit {
   password: String;
   bio: String;
   skills: Array<String>;
-
   user:Object;
+  changes = false;
 
   constructor(
     private flashMessage:FlashMessagesService,
@@ -32,6 +32,11 @@ export class SettingsComponent implements OnInit {
   //go back on cancel button press
   goBack(){
     this.location.back();
+  }
+
+  //for showing the "save settings" button when user types in fields
+  noticeChanges(){
+    this.changes = true;
   }
 
   //send a post request to save settings from form
