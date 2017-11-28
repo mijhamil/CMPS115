@@ -88,10 +88,10 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
       if(!users) {
         res.json({ success: false, message: 'No users found'});
       } else {
-        res.json({ success: true, users: users})
+        res.json({ success: true, users: users});
       }
     }
-  }
+  })
 });
 
 module.exports = router;
