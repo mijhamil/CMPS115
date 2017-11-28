@@ -6,7 +6,7 @@
   </div>
   <div class="form-group">
     <label>Username</label>
-    <input type="text" [(ngModel)]="username" name="username" class="form-control">
+    <input type="text" [(ngModel)]="username" name="username" (blur)=checkUsername() class="form-control">
   </div>
   <div class="form-group">
     <label>Email</label>

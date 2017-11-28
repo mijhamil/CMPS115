@@ -23,6 +23,23 @@ router.post('/register', (req, res, next) => {
   });
 });
 
+// Check if username already exists
+router.get('/checkUsername/:username', (req, res) => {
+  const username = req.params.username;
+
+  User.getUserByUsername(username, (err, user) => {
+    if(err) {
+      return res.json({ success: false, message: err });
+    } else {
+      if(!user) {
+        return res.json({ success: true, message: 'Username is available'});
+      } else {
+        return res.json({ success: false, message: 'Username already exists'});
+      }
+    }
+  });
+});
+
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
   const username = req.body.username;

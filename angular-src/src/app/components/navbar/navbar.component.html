@@ -1,8 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/dashboard">Choredash</a>
+  <a *ngIf="!authService.loggedIn()" class="navbar-brand" href="#">ChoreDash</a>
+  <a *ngIf="authService.loggedIn()" class="navbar-brand" href="/dashboard">ChoreDash</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" style="">
       <span class="navbar-toggler-icon"></span>
   </button>
+
 
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav ml-auto">
@@ -10,7 +12,14 @@
         <a class="nav-link" [routerLink]="['/dashboard']">Dashboard <span class="sr-only">(current)</span></a>
       </li>
       <li class = "nav-item" *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+        <a class="nav-link" [routerLink]="['/posts']">Posts</a>
+      </li>
+      <li class = "nav-item" *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
         <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+      </li>
+
+      <li class = "nav-item" *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
+        <a class="nav-link" [routerLink]="['/manage-jobs']">Manage Jobs</a>
       </li>
 
       <li class = "nav-item" *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
