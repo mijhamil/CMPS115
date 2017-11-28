@@ -1,29 +1,57 @@
-<!DOCTYPE html>
-<html>
-<body>
-  <h1>Post a job</h1>
-  <div>
-    <form (submit)="onPostSubmit()" action="" method="get">
-      <label>Title</label>
-      <input type='text' [(ngModel)]="title" name="title" placeholder="Title" class= "form-control" required>
-
-      <label>Location</label>
-      <input places-auto-complete (initialized$)="initialized($event)" (place_changed)="placeChanged($event)" [types]="['geocode']" name="location" placeholder="Address" class="form-control" required>
-
-      <label>Date</label>
-      <input type="date" [(ngModel)]="date" name="date"  class="form-control" required>
-
-      <label>Time</label>
-      <input type="time" [(ngModel)]="time" name="time" placeholder = "12:00 PM PST" class="form-control" required>
-
-      <label>Pay rate</label>
-      <input type="text" [(ngModel)]="payrate" name="payrate" placeholder="$20.00" min="0" class="form-control" (blur)="formatPay()" required>
-
-      <label>Details</label>
-      <textarea type="area" [(ngModel)]="details" name="details" placeholder="What needs to be done..." class="form-control" required></textarea>
-
-      <input type="submit" class="btn btn-primary" value="Post">
-    </form>
+<br />
+<h1>All Jobs</h1>
+<hr>
+<!-- <div  class="panel panel-primary" *ngFor="let post of allPosts">
+  <div class="panel-heading">
+    <h2 class="panel-title">{{post.title}}</h2>
   </div>
-</body>
-</html>
+
+  <div class="panel-body">
+    {{post.details}}
+  </div>
+</div> -->
+
+
+<!-- Panel Start -->
+<div *ngIf="!newPost">
+  <!-- Panel Outer Layer -->
+  <div class="panel panel-primary" *ngFor="let post of allPosts">
+
+    <!-- Panel Title -->
+    <div class="panel-heading">
+      <h3 class="panel-title"><strong>Title: </strong>{{ post.title }}</h3>
+    </div>
+
+    <!-- Panel Body -->
+    <div class="panel-body">
+      <strong>Details: </strong>{{ post.details }}
+    </div>
+
+    <!-- Panel Footer Start -->
+    <div class="panel-footer">
+      <strong>Location: </strong>{{ post.location }}
+      <br />
+      <strong>Date: </strong>{{ post.date }} <!-- had to remove the formatting here, was causing error -->
+      <br />
+      <strong>Time: </strong>{{ post.time }}
+      <br />
+      <strong>Payrate: </strong>{{ post.payrate }}
+      <br />
+      <strong>Posted by: </strong>{{ post.createdBy }}
+      <br />
+
+      <!-- Request Job Button -->
+        <button type="button" name="button" class="btn btn-success" *ngIf="username !== post.username">Request job</button>
+
+      <!-- Edit Button -->
+        <button type="button" name="button" class="btn btn-primary" *ngIf="username == post.username">Edit</button>
+
+        <hr>
+
+    <!-- Panel Footer End -->
+    <!-- Post Comment Box: End -->
+
+  </div>
+  <!-- Panel Outer Layer -->
+</div>
+<!-- Panel End -->
