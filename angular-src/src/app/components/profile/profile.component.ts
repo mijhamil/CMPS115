@@ -9,6 +9,8 @@ import {Router} from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   user:Object;
+  // username = '';
+  // email = '';
 
   constructor(
     private authService:AuthService,
@@ -18,6 +20,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
+      // this.username = profile.user.username; // Set username
+      // this.email = profile.user.email; // Set e-mail
     },
     err => {
       console.log(err);
