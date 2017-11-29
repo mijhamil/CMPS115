@@ -57,7 +57,7 @@ const appRoutes: Routes =  [
     PendingrequestsComponent,
     InprogressjobsComponent,
     CompletedjobsComponent,
-    CancelledjobsComponent
+    CancelledjobsComponent,
     SettingsComponent
   ],
   imports: [
