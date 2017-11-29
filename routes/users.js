@@ -97,8 +97,25 @@ router.post('/authenticate', (req, res, next) => {
   });
 });
 
-// Profile
-// add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
+// Single User Profile
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
+router.get('/profile/:_id', (req, res, next) => {
+  const _id = req.params._id;
+  User.getUserById(_id, (err, user) => {
+    if(err) {
+      return res.json({ success: false, message: err });
+    } else {
+      if(!user) {
+        return res.json({ success: false, message: 'User not found.'});
+      } else {
+        return res.json({ success: true, user: user});
+      }
+    }
+  });
+});
+
+// All User Profiles
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
 router.get('/profile', (req, res, next) => {
   User.find({}, (err, users) => {
     if(err) {
@@ -112,5 +129,6 @@ router.get('/profile', (req, res, next) => {
     }
   })
 });
+
 
 module.exports = router;
