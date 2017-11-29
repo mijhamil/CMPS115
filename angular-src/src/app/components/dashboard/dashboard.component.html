@@ -1,75 +1,57 @@
-<!DOCTYPE html>
-<html>
-<style>
-input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+<br />
+<h1>All Jobs</h1>
+<hr>
+<!-- <div  class="panel panel-primary" *ngFor="let post of allPosts">
+  <div class="panel-heading">
+    <h2 class="panel-title">{{post.title}}</h2>
+  </div>
 
-textarea[type=area], select {
-    width: 100%;
-    height: 150px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+  <div class="panel-body">
+    {{post.details}}
+  </div>
+</div> -->
 
-input[type=submit] {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
 
-input[type=submit]:hover {
-    background-color: #45a049;
+<!-- Panel Start -->
+<div *ngIf="!newPost">
+  <!-- Panel Outer Layer -->
+  <div class="panel panel-primary" *ngFor="let post of allPosts">
 
-}
+    <!-- Panel Title -->
+    <div class="panel-heading">
+      <h3 class="panel-title"><strong>Title: </strong>{{ post.title }}</h3>
+    </div>
 
-textarea { height: 80px; resize: none; }
+    <!-- Panel Body -->
+    <div class="panel-body">
+      <strong>Details: </strong>{{ post.details }}
+    </div>
 
-div {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-}
-</style>
-<body>
+    <!-- Panel Footer Start -->
+    <div class="panel-footer">
+      <strong>Location: </strong>{{ post.location }}
+      <br />
+      <strong>Date: </strong>{{ post.date }} <!-- had to remove the formatting here, was causing error -->
+      <br />
+      <strong>Time: </strong>{{ post.time }}
+      <br />
+      <strong>Payrate: </strong>{{ post.payrate }}
+      <br />
+      <strong>Posted by: </strong>{{ post.createdBy }}
+      <br />
 
-<h3>Post a job</h3>
+      <!-- Request Job Button -->
+        <button type="button" name="button" class="btn btn-success" *ngIf="username !== post.username">Request job</button>
 
-<div>
-  <form action="/action_page.php">
-    <label for="joblocation">Location</label>
-    <input type="text" id="joblocation" name="location" placeholder="Address" required>
+      <!-- Edit Button -->
+        <button type="button" name="button" class="btn btn-primary" *ngIf="username == post.username">Edit</button>
 
-    <label for="jobdate">Date</label>
-    <input type="text" id="jobdate" name="date" placeholder="MM/DD/YY" requried>
+        <hr>
 
-    <label for="jobtime">Time</label>
-    <input type="text" id="jobtime" name="time" placeholder="12:00 PM PST" required>
+    <!-- Panel Footer End -->
+    <!-- Post Comment Box: End -->
 
-    <label for="jobtime">Pay rate</label>
-    <input type="text" id="jobpay" name="pay" placeholder="$20.00" required>
-
-    <label for="jobdetails">Details</label>
-    <textarea type="area" id="jobdetails" name="details" placeholder="What needs to be done..." required></textarea>
-
-    <input type="submit" value="Post">
-  </form>
+  </div>
+  <!-- Panel Outer Layer -->
 </div>
-
-</body>
-</html>
+<!-- Panel End -->

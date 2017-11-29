@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ValidateService} from '../../services/validate.service'
-import {AuthService} from '../../services/auth.service'
-import {FlashMessagesService} from 'angular2-flash-messages';
-import {Router} from '@angular/router';
+import { ValidateService } from '../../services/validate.service'
+import { AuthService } from '../../services/auth.service'
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,15 +14,23 @@ export class RegisterComponent implements OnInit {
   username: String;
   email: String;
   password: String;
+  userAvailable;
 
   constructor(
     private validateService: ValidateService,
-    private flashMessage:FlashMessagesService,
-    private authService:AuthService,
+    private flashMessage: FlashMessagesService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
+  }
+
+  // Check if username is available
+  checkUsername() {
+    this.validateService.checkUsername(this.username).subscribe(data => {
+      this.userAvailable = data.success;
+    });
   }
 
   onRegisterSubmit(){
@@ -45,6 +53,12 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
+    // Check if username is available
+    if(!this.userAvailable) {
+      this.flashMessage.show('Username is already taken', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
+
     // Register user
     this.authService.registerUser(user).subscribe(data => {
       if(data.success){
@@ -57,5 +71,4 @@ export class RegisterComponent implements OnInit {
     });
 
   }
-
 }

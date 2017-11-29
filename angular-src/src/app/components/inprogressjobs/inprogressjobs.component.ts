@@ -1,25 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService} from '../../services/post.service';
 import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import { PostService} from '../../services/post.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-inprogressjobs',
+  templateUrl: './inprogressjobs.component.html',
+  styleUrls: ['./inprogressjobs.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class InprogressjobsComponent implements OnInit {
 
   allPosts;
   username;
 
   constructor(
     private postService: PostService,
-    private authService: AuthService
+    private authService:AuthService,
+    private router:Router,
+    private flashMessage:FlashMessagesService
   ) {
     this.getAllPosts();
   }
 
-  getAllPosts() {
+  getAllPosts(){
     this.postService.getAllPosts().subscribe(data => {
       this.allPosts = data.posts;
     })

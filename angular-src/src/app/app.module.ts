@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { Ng2MapModule } from 'ng2-map';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -12,11 +13,17 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostsComponent } from './components/posts/posts.component';
+import { ManagejobsComponent } from './components/managejobs/managejobs.component';
+import { PendingrequestsComponent } from './components/pendingrequests/pendingrequests.component';
+import { InprogressjobsComponent } from './components/inprogressjobs/inprogressjobs.component';
+import { CompletedjobsComponent } from './components/completedjobs/completedjobs.component';
 
 import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
+import {PostService} from './services/post.service'
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
+import { CancelledjobsComponent } from './components/cancelledjobs/cancelledjobs.component';
 import { SettingsComponent } from './components/settings/settings.component';
 
 
@@ -26,8 +33,14 @@ const appRoutes: Routes =  [
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  {path:'posts', component: PostsComponent},
+  {path:'posts', component: PostsComponent, canActivate:[AuthGuard]},
+  {path:'manage-jobs', component: ManagejobsComponent, canActivate:[AuthGuard]},
+  {path:'pending-requests', component: PendingrequestsComponent, canActivate:[AuthGuard]},
+  {path:'in-progress-jobs', component: InprogressjobsComponent, canActivate:[AuthGuard]},
+  {path:'completed-jobs', component: CompletedjobsComponent, canActivate:[AuthGuard]},
+  {path:'cancelled-jobs', component: CancelledjobsComponent, canActivate:[AuthGuard]},
   {path:'settings', component: SettingsComponent, canActivate:[AuthGuard]}
+
 ]
 
 @NgModule({
@@ -40,6 +53,11 @@ const appRoutes: Routes =  [
     DashboardComponent,
     ProfileComponent,
     PostsComponent,
+    ManagejobsComponent,
+    PendingrequestsComponent,
+    InprogressjobsComponent,
+    CompletedjobsComponent,
+    CancelledjobsComponent
     SettingsComponent
   ],
   imports: [
@@ -47,9 +65,10 @@ const appRoutes: Routes =  [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    FlashMessagesModule
+    FlashMessagesModule,
+    Ng2MapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?libraries=visualization,places,drawing'}) // https://maps.google.com/maps/api/js?key=AIzaSyDuOPrKPfJ_tM6stQTAeYRwffkVV7c_FPw'})
   ],
-  providers: [ValidateService, AuthService, AuthGuard],
+  providers: [ValidateService, AuthService, PostService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

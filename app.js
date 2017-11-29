@@ -22,6 +22,7 @@ mongoose.connection.on('error', (err) => {
 const app = express();
 
 const users = require('./routes/users');
+const posts = require('./routes/posts');
 //const settings = require('./routes/settings');
 
 // Port Number
@@ -44,6 +45,7 @@ require('./config/passport')(passport);
 
 // Domain/users/(whatever users file) → will go to that users file
 app.use('/users', users);
+app.use('/posts', posts);
 //app.use('/settings', settings);
 
 // Index Route

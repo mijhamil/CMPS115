@@ -1,21 +1,29 @@
-<div class="container">  
-  <form id="contact" action="" method="post">
-    <h3>New Job</h3>
-    <h4>Enter new a new job listing.</h4>
-    <fieldset>
-      <input placeholder="Your name" type="text" tabindex="1" required autofocus>
-    </fieldset>
-    <fieldset>
-      <input placeholder="Your Email Address" type="email" tabindex="2" required>
-    </fieldset>
-    <fieldset>
-      <input placeholder="Your Phone Number (optional)" type="tel" tabindex="3" required>
-    </fieldset>
-    <fieldset>
-      <textarea placeholder="Type your message here...." tabindex="5" required></textarea>
-    </fieldset>
-    <fieldset>
-      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
-    </fieldset>
-  </form>
-</div>
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Post a job</h1>
+  <div>
+    <form (submit)="onPostSubmit()" action="" method="get">
+      <label>Title</label>
+      <input type='text' [(ngModel)]="title" name="title" placeholder="Title" class= "form-control" required>
+
+      <label>Location</label>
+      <input places-auto-complete (initialized$)="initialized($event)" (place_changed)="placeChanged($event)" [types]="['geocode']" name="location" placeholder="Address" class="form-control" required>
+
+      <label>Date</label>
+      <input type="date" [(ngModel)]="date" name="date"  class="form-control" required>
+
+      <label>Time</label>
+      <input type="time" [(ngModel)]="time" name="time" placeholder = "12:00 PM PST" class="form-control" required>
+
+      <label>Pay rate</label>
+      <input type="text" [(ngModel)]="payrate" name="payrate" placeholder="$20.00" min="0" class="form-control" (blur)="formatPay()" required>
+
+      <label>Details</label>
+      <textarea type="area" [(ngModel)]="details" name="details" placeholder="What needs to be done..." class="form-control" required></textarea>
+
+      <input type="submit" class="btn btn-primary" value="Post">
+    </form>
+  </div>
+</body>
+</html>

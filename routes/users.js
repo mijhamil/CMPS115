@@ -23,6 +23,23 @@ router.post('/register', (req, res, next) => {
   });
 });
 
+// Check if username already exists
+router.get('/checkUsername/:username', (req, res) => {
+  const username = req.params.username;
+
+  User.getUserByUsername(username, (err, user) => {
+    if(err) {
+      return res.json({ success: false, message: err });
+    } else {
+      if(!user) {
+        return res.json({ success: true, message: 'Username is available'});
+      } else {
+        return res.json({ success: false, message: 'Username already exists'});
+      }
+    }
+  });
+});
+
 // Settings
 router.post('/settings', (req, res, next) => {
   let user = new User({
@@ -43,6 +60,7 @@ router.post('/settings', (req, res, next) => {
     }
   });
 });
+
 
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
