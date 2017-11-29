@@ -13,13 +13,18 @@ const UserSchema = mongoose.Schema({
   },
   username: {
     type: String,
+    lowercase: true,
+    required: true
+  },
+  displayname: {
+    type: String,
     required: true
   },
   password: {
     type: String,
     required: true
   }
-});
+}, { runSettersOnQuery: true });
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
@@ -38,6 +43,7 @@ module.exports.addUser = function(newUser, callback){
       if(err) throw err;
       newUser.password = hash;
       newUser.save(callback);
+      console.log(newUser);
     });
   });
 }

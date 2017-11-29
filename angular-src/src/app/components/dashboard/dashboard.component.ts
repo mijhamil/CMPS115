@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
   formatPay() {
     var pay = this.payrate;
 
-    pay = pay.replace(/\D/g,'');
+    pay = pay.replace(/[^0-9.]/,'');
     if (pay.indexOf("$") != 0 && pay.length != 0)
     {
       pay = pay.replace(/$/, '')
