@@ -101,6 +101,7 @@ router.post('/authenticate', (req, res, next) => {
 //possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
 router.get('/profile/:_id', (req, res, next) => {
   const _id = req.params._id;
+
   User.getUserById(_id, (err, user) => {
     if(err) {
       return res.json({ success: false, message: err });

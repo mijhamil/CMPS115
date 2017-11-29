@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 
 @Component({
@@ -9,27 +10,36 @@ import {Router} from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   //user:Object;
-  username:String;
-  email:String;
+  username = 'placeholder';
+  email = 'placeholder@email.com';
   bio:String;
 
   constructor(
     private authService:AuthService,
+    private flashMessage:FlashMessagesService,
     private router:Router
   ) { }
 
   ngOnInit() {
-    this.authService.getProfile().subscribe(profile => {
-      // this.user = profile.user;
-      this.username = profile.User.username; // Set username
-      this.email = profile.User.Email; // Set e-mail
-      this.bio = profile.User.Bio;
-    },
-    err => {
-      console.log(err);
-      return false;
-    });
+    this.getProfile();
   }
 
+  getProfile() {
+
+    this.authService.getProfile().subscribe(profile => {
+      if(profile.success){
+        //flash message for testing, remove later
+        this.flashMessage.show('Account Found!', {cssClass: 'alert-success', timeout: 3000});
+
+        this.username = profile.user.username; // Set username
+        this.email = profile.user.email; // Set e-mail
+      } else{
+        this.flashMessage.show('Profile data failed', {cssClass: 'alert-danger', timeout: 3000});
+        //using Username field to test
+        // this.username = profile.success;
+      }
+
+    })
+  }
 
 }

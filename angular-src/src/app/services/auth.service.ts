@@ -7,6 +7,7 @@ import {tokenNotExpired} from 'angular2-jwt';
 export class AuthService {
   authToken: any;
   user: any;
+  // userId;
 
   constructor(private http:Http) {}
 
@@ -25,6 +26,16 @@ export class AuthService {
   }
 
   getProfile(){
+    let headers = new Headers();
+    // this.loadToken();
+    // headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
+    //SOMEHOW NEED TO ADD CURRENT USER'S ID IN PLACE OF HARDCODED ID
+    return this.http.get('http://localhost:3000/users/profile' + '/5a0685e0dc4283259468069d', {headers: headers})
+      .map(res => res.json());
+  }
+
+  getAllProfiles(){
     let headers = new Headers();
     // this.loadToken();
     // headers.append('Authorization', this.authToken);
