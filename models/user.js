@@ -18,6 +18,18 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  bio: {
+    type: String,
+    required: false
+  },
+  skills: {
+      type: Array,
+      required: false
+  },
+  image: {
+      type: Buffer,
+      required: false
   }
 });
 
@@ -40,6 +52,10 @@ module.exports.addUser = function(newUser, callback){
       newUser.save(callback);
     });
   });
+}
+
+module.exports.editUser = function(user, callback){
+  user.save(callback);
 }
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){

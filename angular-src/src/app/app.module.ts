@@ -24,6 +24,8 @@ import {PostService} from './services/post.service'
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AuthGuard} from './guards/auth.guard';
 import { CancelledjobsComponent } from './components/cancelledjobs/cancelledjobs.component';
+import { SettingsComponent } from './components/settings/settings.component';
+
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -37,6 +39,8 @@ const appRoutes: Routes =  [
   {path:'in-progress-jobs', component: InprogressjobsComponent, canActivate:[AuthGuard]},
   {path:'completed-jobs', component: CompletedjobsComponent, canActivate:[AuthGuard]},
   {path:'cancelled-jobs', component: CancelledjobsComponent, canActivate:[AuthGuard]},
+  {path:'settings', component: SettingsComponent, canActivate:[AuthGuard]}
+
 ]
 
 @NgModule({
@@ -54,6 +58,7 @@ const appRoutes: Routes =  [
     InprogressjobsComponent,
     CompletedjobsComponent,
     CancelledjobsComponent
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

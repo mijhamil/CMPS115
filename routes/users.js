@@ -40,6 +40,28 @@ router.get('/checkUsername/:username', (req, res) => {
   });
 });
 
+// Settings
+router.post('/settings', (req, res, next) => {
+  let user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+    bio: req.body.bio,
+    skills: req.body.skills,
+    image: req.body.image
+  });
+
+  User.editUser(user, (err, user) => {
+    if(err){
+      res.json({success: false, msg:'Failed to edit settings'});
+    } else {
+      res.json({success: true, msg:'Settings saved'});
+    }
+  });
+});
+
+
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
   const username = req.body.username;
@@ -76,8 +98,19 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 // Profile
-router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-  res.json({user: req.user});
+// add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
+router.get('/profile', (req, res, next) => {
+  User.find({}, (err, users) => {
+    if(err) {
+      res.json({ success: false, message: err });
+    } else {
+      if(!users) {
+        res.json({ success: false, message: 'No users found'});
+      } else {
+        res.json({ success: true, users: users});
+      }
+    }
+  })
 });
 
 module.exports = router;

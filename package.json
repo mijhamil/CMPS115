@@ -14,6 +14,7 @@
     "express": "*",
     "jsonwebtoken": "*",
     "mongoose": "^4.10.8",
+    "ng-image-input-with-preview": "0.0.5",
     "passport": "*",
     "passport-jwt": "*"
   },
