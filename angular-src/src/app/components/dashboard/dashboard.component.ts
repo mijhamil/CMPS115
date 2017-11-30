@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService} from '../../services/post.service';
 import {AuthService} from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router:Router
   ) {
     this.getAllPosts();
   }
@@ -23,6 +25,10 @@ export class DashboardComponent implements OnInit {
     this.postService.getAllPosts().subscribe(data => {
       this.allPosts = data.posts;
     })
+  }
+
+  post() {
+    this.router.navigate(['/posts'])
   }
 
   ngOnInit() {
