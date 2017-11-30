@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit {
   username = 'placeholder';
   email = 'placeholder@email.com';
   bio:String;
-  user = JSON.parse(localStorage.getItem('user'));
+  currentUser = JSON.parse(localStorage.getItem('user'));
 
   constructor(
     private authService:AuthService,
@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
 
   getProfileData() {
 
-    this.authService.getOneProfile(this.user.id).subscribe(profile => {
+    this.authService.getOneProfile(this.currentUser.id).subscribe(profile => {
       if(profile.success){
         //flash message for testing, remove later
         // this.flashMessage.show('Account Found!', {cssClass: 'alert-success', timeout: 3000});
