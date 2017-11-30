@@ -23,6 +23,23 @@ router.post('/register', (req, res, next) => {
   });
 });
 
+// Check if username already exists
+router.get('/checkUsername/:username', (req, res) => {
+  const username = req.params.username;
+
+  User.getUserByUsername(username, (err, user) => {
+    if(err) {
+      return res.json({ success: false, message: err });
+    } else {
+      if(!user) {
+        return res.json({ success: true, message: 'Username is available'});
+      } else {
+        return res.json({ success: false, message: 'Username already exists'});
+      }
+    }
+  });
+});
+
 // Settings
 router.post('/settings', (req, res, next) => {
   let user = new User({
@@ -42,6 +59,7 @@ router.post('/settings', (req, res, next) => {
     }
   });
 });
+
 
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
@@ -78,9 +96,39 @@ router.post('/authenticate', (req, res, next) => {
   });
 });
 
-// Profile
-router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-  res.json({user: req.user});
+// Single User Profile
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
+router.get('/profile/:_id', (req, res, next) => {
+  const _id = req.params._id;
+
+  User.getUserById(_id, (err, user) => {
+    if(err) {
+      return res.json({ success: false, message: err });
+    } else {
+      if(!user) {
+        return res.json({ success: false, message: 'User not found.'});
+      } else {
+        return res.json({ success: true, user: user});
+      }
+    }
+  });
 });
+
+// All User Profiles
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
+router.get('/profile', (req, res, next) => {
+  User.find({}, (err, users) => {
+    if(err) {
+      res.json({ success: false, message: err });
+    } else {
+      if(!users) {
+        res.json({ success: false, message: 'No users found'});
+      } else {
+        res.json({ success: true, users: users});
+      }
+    }
+  })
+});
+
 
 module.exports = router;

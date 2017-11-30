@@ -7,6 +7,7 @@ import {tokenNotExpired} from 'angular2-jwt';
 export class AuthService {
   authToken: any;
   user: any;
+  // userId;
 
   constructor(private http:Http) {}
 
@@ -24,14 +25,26 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  //GET ALL PROFILES
   getProfile(){
     let headers = new Headers();
-    //this.loadToken();
-    //headers.append('Authorization', this.authToken);
+    // this.loadToken();
+    // headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-    return this.http.get('http://localhost:3000/users/profile',{headers: headers})
+    return this.http.get('http://localhost:3000/users/profile/', {headers: headers})
       .map(res => res.json());
   }
+
+  //GET ONE PROFILE
+  getOneProfile(userID){
+    let headers = new Headers();
+    // this.loadToken();
+    // headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
+    return this.http.get('http://localhost:3000/users/profile/' + userID, {headers: headers})
+      .map(res => res.json());
+  }
+
 
   storeUserData(token, user){
     localStorage.setItem('id_token', token);

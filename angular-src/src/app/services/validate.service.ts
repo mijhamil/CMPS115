@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class ValidateService {
 
-  constructor() { }
+  constructor(private http:Http) { }
+
+  checkUsername(username) {
+    return this.http.get('http://localhost:3000/users/checkUsername/' + username).map(res => res.json());
+  }
 
   validateRegister(user){
     if(user.name == undefined || user.email == undefined ||user.password == undefined){

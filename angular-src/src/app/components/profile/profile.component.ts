@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,25 +9,37 @@ import {Router} from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user:Object;
+  //user:Object;
+  username = 'placeholder';
+  email = 'placeholder@email.com';
+  bio:String;
+  user = JSON.parse(localStorage.getItem('user'));
 
   constructor(
     private authService:AuthService,
+    private flashMessage:FlashMessagesService,
     private router:Router
   ) { }
 
   ngOnInit() {
-    this.authService.getProfile().subscribe(profile => {
-      this.user = profile.user;
-    },
-    err => {
-      console.log(err);
-      return false;
-    });
+    this.getProfileData();
   }
 
-  onSettingsClick(){
-    this.router.navigate(['/settings']);
+  getProfileData() {
+
+    this.authService.getOneProfile(this.user.id).subscribe(profile => {
+      if(profile.success){
+        //flash message for testing, remove later
+        // this.flashMessage.show('Account Found!', {cssClass: 'alert-success', timeout: 3000});
+        this.username = profile.user.username; // Set username
+        this.email = profile.user.email; // Set e-mail
+      } else{
+        this.flashMessage.show('Profile data failed', {cssClass: 'alert-danger', timeout: 3000});
+        // using Username field to test
+        // this.username = profile.message;
+      }
+
+    })
   }
 
 }
