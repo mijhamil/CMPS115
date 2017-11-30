@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   username = 'placeholder';
   email = 'placeholder@email.com';
   bio:String;
+  user = JSON.parse(localStorage.getItem('user'));
 
   constructor(
     private authService:AuthService,
@@ -21,22 +22,21 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getProfile();
+    this.getProfileData();
   }
 
-  getProfile() {
+  getProfileData() {
 
-    this.authService.getProfile().subscribe(profile => {
+    this.authService.getOneProfile(this.user.id).subscribe(profile => {
       if(profile.success){
         //flash message for testing, remove later
-        this.flashMessage.show('Account Found!', {cssClass: 'alert-success', timeout: 3000});
-
+        // this.flashMessage.show('Account Found!', {cssClass: 'alert-success', timeout: 3000});
         this.username = profile.user.username; // Set username
         this.email = profile.user.email; // Set e-mail
       } else{
         this.flashMessage.show('Profile data failed', {cssClass: 'alert-danger', timeout: 3000});
-        //using Username field to test
-        // this.username = profile.success;
+        // using Username field to test
+        // this.username = profile.message;
       }
 
     })

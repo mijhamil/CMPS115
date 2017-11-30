@@ -25,24 +25,26 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  //GET ALL PROFILES
   getProfile(){
     let headers = new Headers();
     // this.loadToken();
     // headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-    //SOMEHOW NEED TO ADD CURRENT USER'S ID IN PLACE OF HARDCODED ID
-    return this.http.get('http://localhost:3000/users/profile' + '/5a0685e0dc4283259468069d', {headers: headers})
+    return this.http.get('http://localhost:3000/users/profile/', {headers: headers})
       .map(res => res.json());
   }
 
-  getAllProfiles(){
+  //GET ONE PROFILE
+  getOneProfile(userID){
     let headers = new Headers();
     // this.loadToken();
     // headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-    return this.http.get('http://localhost:3000/users/profile',{headers: headers})
+    return this.http.get('http://localhost:3000/users/profile/' + userID, {headers: headers})
       .map(res => res.json());
   }
+
 
   storeUserData(token, user){
     localStorage.setItem('id_token', token);
