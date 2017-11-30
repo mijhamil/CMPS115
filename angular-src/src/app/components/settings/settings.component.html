@@ -5,8 +5,10 @@
 <div>
 <form style="padding:10px" ng-controller="updateSettings" action="" method="get">
     <div class = "form-group">
-        <img class ="profPic" src="https://i.imgur.com/6eOlEUB.jpg"/>
+        <img class ="profPic" src="{{imgLink}}"/>
         <br>
+        <label style="padding-top:2%" for="name">Profile Picture URL</label>
+        <input type="text" id = "imgLink" class="form-control" name="imgLink" placeholder="{{this.imgLink}}">
     <!-- <input style="padding-top:2%" type="file" name="profPic" image-with-preview ng-model="image" accept="image/jpeg,image/png" placeholder="/angular-src/src/assets/default_profile_pic_final.png"> -->
     <!--<span class="error" ng-show="profPic.$error.image">
         Not a JPEG or a PNG!
@@ -16,30 +18,30 @@
     </div>
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" placeholder="" [(ngModel)]="name" name="name" required>
+        <input type="text" class="form-control" name="name" placeholder="{{this.name}}" required>
         <!-- add ng-change="noticeChanges()" to above input field to test if changes are recognized to show the save button -->
     </div>
+    <div class="form-group">
+    <label for="password">Password </label>
+    <input type="password" class="form-control" placeholder="{{this.password}}" name="password" required>
+    </div>
     <!-- <div class="form-group">
-    <label for="email">Username </label>
-    <input type="text" class="form-control" placeholder="" [(ngModel)]="username" name="username" required>
-    </div> -->
-    <!-- <div class="form-group">
-        <label for="email">Email </label>
-        <input type="text" class="form-control" placeholder="" [(ngModel)]="email" name="email" required>
+    <label for="retypedPswd">Repeat Password </label>
+    <input type="password" class="form-control" placeholder="{{this.retypedPswd}}" [(ngModel)]="retypedPswd" name="retypedPswd" required>
     </div> -->
     <div class="form-group">
         <label for="bio">Bio </label>
-        <input type="text" class="form-control" placeholder="" [(ngModel)]="bio" name="bio">
+        <input type="text" class="form-control" placeholder="{{this.bio}}" name="bio">
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="skills">Skills </label>
         <input type="text" class="form-control" placeholder="" [(ngModel)]="skill[0]">
         <input type="text" class="form-control" placeholder="" [(ngModel)]="skill[1]">
         <input type="text" class="form-control" placeholder="" [(ngModel)]="skill[2]">
         <input type="text" class="form-control" placeholder="" [(ngModel)]="skill[3]">
         <input type="text" class="form-control" placeholder="" [(ngModel)]="skill[4]">
-    </div>
-    <a href="/dashboard" class="btn btn-danger">Cancel</a>      
+    </div> -->
+    <button type="button" class="btn btn-danger" (click)="goBack(true)">Cancel</button> 
     <button type="button" class="btn btn-success" name ="button" (click)="onSettingsSubmit()">Save Settings</button>
     <!-- add *ngIf="changes" to above input field to test if changes are recognized to show the save button -->
 

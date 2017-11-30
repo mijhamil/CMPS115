@@ -5,7 +5,8 @@ const config = require('../config/database');
 // User Schema
 const UserSchema = mongoose.Schema({
   name: {
-    type: String
+    type: String,
+    required: false
   },
   email: {
     type: String,
@@ -23,15 +24,14 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: false
   },
-  skills: {
-      type: Array,
-      required: false
-  }
-  // ,
-  // image: {
-  //     type: Buffer,
+  // skills: {
+  //     type: Array,
   //     required: false
-  // }
+  // },
+  imgLink: {
+      type: String,
+       required: false
+  }
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
