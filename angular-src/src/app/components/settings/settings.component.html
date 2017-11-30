@@ -5,8 +5,9 @@
 <div>
 <form style="padding:10px" ng-controller="updateSettings" action="" method="get">
     <div class = "form-group">
-        <img class ="profPic" src="{{imgLink}}"/>
+        <div style="text-align:center"><img style="margin:auto" class ="profPic" src="{{imgLink}}"/>
         <br>
+        <label style="padding-top:2%; margin:auto" for="name">{{username}}</label><br></div>
         <label style="padding-top:2%" for="name">Profile Picture URL</label>
         <input type="text" id = "imgLink" class="form-control" name="imgLink" placeholder="{{this.imgLink}}">
     <!-- <input style="padding-top:2%" type="file" name="profPic" image-with-preview ng-model="image" accept="image/jpeg,image/png" placeholder="/angular-src/src/assets/default_profile_pic_final.png"> -->

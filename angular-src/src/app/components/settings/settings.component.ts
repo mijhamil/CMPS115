@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
 import {Location} from '@angular/common';
 import {ValidateService} from '../../services/validate.service';
+import { userInfo } from 'os';
 
 @Component({
   selector: 'app-settings',
@@ -11,13 +12,14 @@ import {ValidateService} from '../../services/validate.service';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
+  user = JSON.parse(localStorage.getItem('user'));
   name = "First Last";
   password = "password";
+  username = this.user.username;
   //retypedPswd: String;  
   bio = "Who even, like, are you?";
   //skills: Array<String>;
   imgLink = "https://i.imgur.com/6eOlEUB.jpg";
-  user:Object;
   changes = false;
   //prevPage = this.location.back();
 
@@ -50,8 +52,9 @@ export class SettingsComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       if(profile.success){
         this.name = profile.user.name; // Set components name var
+        this.username = profile.user.username;
         this.bio = profile.user.bio; // Set ... bio
-        this.imgLink = profile.user.imgLink; // Set ... bio
+        this.imgLink = profile.user.imgLink; // Set ... imgLink
       } else{
         this.flashMessage.show('Settings data error', {cssClass: 'alert-danger', timeout: 3000});
       }
