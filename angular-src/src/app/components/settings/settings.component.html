@@ -3,13 +3,13 @@
 <body>
 <h3 style="padding-top:2%">Settings</h3>
 <div>
-<form (submit)="onSettingsSubmit()" style="padding:10px" ng-controller="updateSettings" action="" method="get">
+<form (submit)="onSettingsSubmit(name,bio,imgLink)" style="padding:10px" ng-controller="updateSettings" action="" method="get">
     <div class = "form-group">
         <div style="text-align:center"><img style="margin:auto" class ="profPic" src="{{imgLink}}"/>
         <br>
         <label style="padding-top:2%; margin:auto" for="name">{{username}}</label><br></div>
         <label style="padding-top:2%" for="name">Profile Picture URL</label>
-        <input type="text" id = "imgLink" class="form-control" name="imgLink" placeholder="{{this.imgLink}}">
+        <input type="text" id = "imgLink" class="form-control" name="imgLink" placeholder="{{this.imgLink}}" [(ngModel)]="_formImgLink">
     <!-- <input style="padding-top:2%" type="file" name="profPic" image-with-preview ng-model="image" accept="image/jpeg,image/png" placeholder="/angular-src/src/assets/default_profile_pic_final.png"> -->
     <!--<span class="error" ng-show="profPic.$error.image">
         Not a JPEG or a PNG!
@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" name="name" placeholder="{{this.name}}">
+        <input type="text" class="form-control" name="name" placeholder="{{this.name}}" [(ngModel)]="_formName">
         <!-- add ng-change="noticeChanges()" to above input field to test if changes are recognized to show the save button -->
     </div>
     <div class="form-group">
@@ -32,7 +32,7 @@
     </div> -->
     <div class="form-group">
         <label for="bio">Bio </label>
-        <textarea class="form-control" placeholder="{{this.bio}}" name="bio"></textarea>
+        <textarea class="form-control" placeholder="{{this.bio}}" name="bio" [(ngModel)]="_formBio"></textarea>
     </div>
     <!-- <div class="form-group">
         <label for="skills">Skills </label>

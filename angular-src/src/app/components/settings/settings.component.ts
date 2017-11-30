@@ -24,6 +24,11 @@ export class SettingsComponent implements OnInit {
   changes = false;
   //prevPage = this.location.back();
 
+  //form vars
+  _formName:String;
+  _formBio:String;
+  _formImgLink:String;
+  
   constructor(
     private flashMessage:FlashMessagesService,
     private authService:AuthService,
@@ -63,20 +68,20 @@ export class SettingsComponent implements OnInit {
   }
 
   //send a put request to save settings from form
-  onSettingsSubmit(){
-    const user = {
-      name: this.name,
+  onSettingsSubmit(name,bio,imgLink){
+    const tempUser = {
+      name: this._formName,
       //password: this.password,
-      bio: this.bio,
+      bio: this._formBio,
       //skills: this.skills,
-      imgLink: this.imgLink
+      imgLink: this._formImgLink
     }
     // if(!this.validateService.validateURL(user.imgLink)){
     //   this.flashMessage.show('Please enter a valid web address of an image', {cssClass: 'alert-danger', timeout: 3000});
     //   return false;
     // }
-    this.flashMessage.show('onSettingsSubmit() function reached', {cssClass: 'alert-success', timeout: 3000});
-    this.authService.updateSettings(user).subscribe(data => {
+    //this.flashMessage.show('onSettingsSubmit() function reached', {cssClass: 'alert-success', timeout: 3000});
+    this.authService.updateSettings(tempUser).subscribe(data => {
       if (data.success){
         this.flashMessage.show(data.msg, {cssClass: 'alert-success', timeout: 3000});
       }
