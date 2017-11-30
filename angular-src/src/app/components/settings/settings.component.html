@@ -3,7 +3,7 @@
 <body>
 <h3 style="padding-top:2%">Settings</h3>
 <div>
-<form style="padding:10px" ng-controller="updateSettings" action="" method="get">
+<form (submit)="onSettingsSubmit()" style="padding:10px" ng-controller="updateSettings" action="" method="get">
     <div class = "form-group">
         <div style="text-align:center"><img style="margin:auto" class ="profPic" src="{{imgLink}}"/>
         <br>
@@ -19,12 +19,12 @@
     </div>
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" name="name" placeholder="{{this.name}}" required>
+        <input type="text" class="form-control" name="name" placeholder="{{this.name}}">
         <!-- add ng-change="noticeChanges()" to above input field to test if changes are recognized to show the save button -->
     </div>
     <div class="form-group">
     <label for="password">Password </label>
-    <input type="password" class="form-control" placeholder="{{this.password}}" name="password" required>
+    <input type="password" class="form-control" placeholder="{{this.password}}" name="password">
     </div>
     <!-- <div class="form-group">
     <label for="retypedPswd">Repeat Password </label>
@@ -32,7 +32,7 @@
     </div> -->
     <div class="form-group">
         <label for="bio">Bio </label>
-        <input type="text" class="form-control" placeholder="{{this.bio}}" name="bio">
+        <textarea class="form-control" placeholder="{{this.bio}}" name="bio"></textarea>
     </div>
     <!-- <div class="form-group">
         <label for="skills">Skills </label>
@@ -43,7 +43,7 @@
         <input type="text" class="form-control" placeholder="" [(ngModel)]="skill[4]">
     </div> -->
     <button type="button" class="btn btn-danger" (click)="goBack(true)">Cancel</button> 
-    <button type="button" class="btn btn-success" name ="button" (click)="onSettingsSubmit()">Save Settings</button>
+    <button type="submit" class="btn btn-success" name ="button">Save Settings</button>
     <!-- add *ngIf="changes" to above input field to test if changes are recognized to show the save button -->
 
     <!-- <h1 ng-if="successMessage == 0">Settings Updated!</h1> -->

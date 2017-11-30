@@ -41,21 +41,22 @@ router.get('/checkUsername/:username', (req, res) => {
 });
 
 // Settings
-router.post('/settings', (req, res, next) => {
+router.put('/settings', (req, res, next) => {
   let user = new User({
     name: req.body.name,
     username: req.body.username,
     password: req.body.password,
     bio: req.body.bio,
+    imgLink: req.body.imgLink
     //skills: req.body.skills,
     //image: req.body.image
   });
 
-  User.editUser(user, (err, user) => {
+  User.findOneAndUpdate({_id: req.params._id}, user, (err,user) => {
     if(err){
-      res.json({success: false, msg:'Failed to edit settings'});
+      res.json({success: false, msg:String(err)});
     } else {
-      res.json({success: true, msg:'Settings saved'});
+      res.json({success: true, msg:JSON.stringify(user)});
     }
   });
 });

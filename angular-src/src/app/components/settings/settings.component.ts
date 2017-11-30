@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+//import {FormsModule} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
@@ -35,7 +36,7 @@ export class SettingsComponent implements OnInit {
     this.getSettings();
   }
 
-  //go back on cancel button press
+  //go back to previous page on cancel button press
   goBack(tf){
     if(tf){
       this.location.back();
@@ -49,19 +50,19 @@ export class SettingsComponent implements OnInit {
 
   //load existing settings into vars to act as placeholders
   getSettings() {
-    this.authService.getProfile().subscribe(profile => {
+    this.authService.getOneProfile(this.user.id).subscribe(profile => {
       if(profile.success){
-        this.name = profile.user.name; // Set components name var
+        if(profile.user.name){this.name = profile.user.name;} // Set components name var
         this.username = profile.user.username;
-        this.bio = profile.user.bio; // Set ... bio
-        this.imgLink = profile.user.imgLink; // Set ... imgLink
+        if(profile.user.bio){this.bio = profile.user.bio;} // Set ... bio
+        if(profile.user.imgLink){this.imgLink = profile.user.imgLink;} // Set ... imgLink
       } else{
         this.flashMessage.show('Settings data error', {cssClass: 'alert-danger', timeout: 3000});
       }
     })
-    }
+  }
 
-  //send a post request to save settings from form
+  //send a put request to save settings from form
   onSettingsSubmit(){
     const user = {
       name: this.name,
@@ -70,17 +71,17 @@ export class SettingsComponent implements OnInit {
       //skills: this.skills,
       imgLink: this.imgLink
     }
-    if(!this.validateService.validateURL(user.imgLink)){
-      this.flashMessage.show('Please enter a valid web address of an image', {cssClass: 'alert-danger', timeout: 3000});
-      return false;
-    }
+    // if(!this.validateService.validateURL(user.imgLink)){
+    //   this.flashMessage.show('Please enter a valid web address of an image', {cssClass: 'alert-danger', timeout: 3000});
+    //   return false;
+    // }
     this.flashMessage.show('onSettingsSubmit() function reached', {cssClass: 'alert-success', timeout: 3000});
-    this.authService.editUser(user).subscribe(data => {
+    this.authService.updateSettings(user).subscribe(data => {
       if (data.success){
-        this.flashMessage.show('Settings Saved!', {cssClass: 'alert-success', timeout: 3000});
+        this.flashMessage.show(data.msg, {cssClass: 'alert-success', timeout: 3000});
       }
       else{
-        this.flashMessage.show('Error. Changes to settings not applied', {cssClass: 'alert-danger', timeout: 3000});
+        this.flashMessage.show(data.msg, {cssClass: 'alert-danger', timeout: 100000});
       }
     })
   }

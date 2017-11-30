@@ -53,10 +53,10 @@ export class AuthService {
     this.user = user;
   }
 
-  editUser(user){
+  updateSettings(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/settings', user,{headers: headers})
+    return this.http.put('http://localhost:3000/users/settings/', user,{headers: headers})
     .map(res => res.json());
   }
 
