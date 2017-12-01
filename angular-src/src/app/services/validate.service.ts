@@ -10,6 +10,10 @@ export class ValidateService {
     return this.http.get('http://localhost:3000/users/checkUsername/' + username).map(res => res.json());
   }
 
+  checkEmail(email) {
+    return this.http.get('http://localhost:3000/users/checkEmail/' + email).map(res => res.json());
+  }
+
   validateRegister(user){
     if(user.name == undefined || user.email == undefined ||user.password == undefined){
       return false;

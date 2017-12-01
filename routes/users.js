@@ -40,6 +40,23 @@ router.get('/checkUsername/:username', (req, res) => {
   });
 });
 
+// Check if email already in use
+router.get('/checkEmail/:email', (req, res) => {
+  const email = req.params.email;
+
+  User.getUserByEmail(email, (err, user) => {
+    if(err) {
+      return res.json({ success: false, message: err });
+    } else {
+      if(!user) {
+        return res.json({ success: true, message: 'Email does not belong to a registered user'});
+      } else {
+        return res.json({ success: false, message: 'Email already in use'});
+      }
+    }
+  });
+});
+
 // Settings
 router.put('/settings', (req, res, next) => {
   // User.findOne({id: req.params._id}, (err,user) => {

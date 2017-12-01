@@ -17,8 +17,9 @@ export class SettingsComponent implements OnInit {
 
   //form placeholder values in case of no db entries
   _plName = "First Last";
-  _plPswd = "password";
-  _plRePswd = "Retype Password";  
+  _plCurrPswd = "Current Password";
+  _plRePswd = "Retype New Password";
+  _plNewPswd = "New Password";    
   _plBio = "Who even, like, are you?";
   //_plSkills = ["phone repair", "knitting", "cooking"];
   _plImgLink = "https://i.imgur.com/6eOlEUB.jpg";
@@ -32,14 +33,18 @@ export class SettingsComponent implements OnInit {
   imgLink:string;
 
   changes = false; // track if there are changes to the form (not implemented)
-  hideRePw = true; // if true, second pw field is hidden
+  hideNewPw = true; // if true, second pw field is hidden  
+  hideRePw = true; // if true, repeat pw field is hidden
+  newPwWarning = false; // warm user in new pw is too short
+  rePwWarning = true; // warm user if repeated pw doesn't match
 
   //vars to store form fields
   _formName:string;
   _formBio:string;
   _formImgLink:string;
-  _formPswd:string;
-  _formRetypedPwsd:string;
+  _formCurrPswd:string;
+  _formNewPswd:string;  
+  _formRePswd:string;
 
   constructor(
     private flashMessage:FlashMessagesService,
@@ -54,12 +59,39 @@ export class SettingsComponent implements OnInit {
   }
 
   //change the value of hideRePw to show/hide second pw field
+  setHideNewPw(){
+    if(this._formCurrPswd && !(this._formCurrPswd=="")){
+      this.hideNewPw = false;
+      this.newPwWarning = true;  
+    }
+    else{
+      this.hideNewPw = true;
+    }
+  }
+
+  //change the value of hideRePw to show/hide second pw field
   setHideRePw(){
-    if(this._formPswd && !(this._formPswd=="")){
-      this.hideRePw = false;      
+    if(this._formNewPswd && !(this._formNewPswd=="")){
+      this.hideRePw = false;
+      if(this._formNewPswd.length < 6){
+        this.newPwWarning = true;
+      }
+      else{
+        this.newPwWarning = false;
+      }
     }
     else{
       this.hideRePw = true;
+    }
+  }
+
+  //show or hide new password and retyped apssword match warning
+  setRePwWarning(){
+    if(this._formNewPswd == this._formRePswd){
+      this.rePwWarning = false;
+    }
+    else{
+      this.rePwWarning = true;
     }
   }
 
@@ -95,6 +127,20 @@ export class SettingsComponent implements OnInit {
 
   //send a put request to save settings from form
   onSettingsSubmit(){
+    if(!this._formCurrPswd || this._formCurrPswd == ""){
+      this.flashMessage.show('Please enter your current password to save settings', {cssClass: 'alert-danger', timeout: 3000});      
+      return false;
+    }
+    if(this._formNewPswd && this._formNewPswd!=""){
+      if(this._formNewPswd.length < 6){
+        //this.flashMessage.show('New password must be at least 6 characters long', {cssClass: 'alert-danger', timeout: 3000});
+        return false;              
+      }
+      else if(this._formNewPswd != this._formRePswd){
+        //this.flashMessage.show('New password does not match repeated password', {cssClass: 'alert-danger', timeout: 3000, close:'true',});
+        return false;  
+      }
+    }
     var tempName = "";
     if(this._formName && this._formName!=""){tempName=this._formName}
     else if(this.name!=this._plName){tempName=this.name}

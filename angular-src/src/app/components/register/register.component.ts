@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   email: String;
   password: String;
   userAvailable;
+  emailAvailable;
 
   constructor(
     private validateService: ValidateService,
@@ -30,6 +31,13 @@ export class RegisterComponent implements OnInit {
   checkUsername() {
     this.validateService.checkUsername(this.username).subscribe(data => {
       this.userAvailable = data.success;
+    });
+  }
+
+  // Check if email is available
+  checkEmail(){
+    this.validateService.checkEmail(this.email).subscribe(data => {
+      this.emailAvailable = data.success;
     });
   }
 
@@ -50,6 +58,12 @@ export class RegisterComponent implements OnInit {
     // Validate Email
     if(!this.validateService.validateEmail(user.email)){
       this.flashMessage.show('Please use a valid @ucsc.edu email', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
+
+    // Check if email is available
+    if(!this.emailAvailable) {
+      this.flashMessage.show('Email already in use. Please try logging in', {cssClass: 'alert-danger', timeout: 3000});
       return false;
     }
 

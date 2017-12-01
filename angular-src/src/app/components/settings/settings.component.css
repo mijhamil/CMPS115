@@ -43,6 +43,16 @@ div {
     padding: 20px;
 }
 
+#asterisk{
+    color: #ff0000;
+    font-size: 20px;
+}
+
+.warningText{
+    color: #ff0000;
+    /* font-size: 20px; */
+}
+
 #username{
     padding-top:2%;
     margin:auto;
