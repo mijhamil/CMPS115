@@ -96,21 +96,21 @@ export class SettingsComponent implements OnInit {
   //send a put request to save settings from form
   onSettingsSubmit(){
     var tempName = "";
-    if(this._formName){tempName=this._formName}
-    else if(this.name && this.name!=this._plName){tempName=this.name}
+    if(this._formName && this._formName!=""){tempName=this._formName}
+    else if(this.name!=this._plName){tempName=this.name}
     var tempBio = "";
-    if(this._formBio){tempBio=this._formBio}
-    else if(this.bio && this.bio!=this._plBio){tempBio=this.bio}
+    if(this._formBio && this._formBio!=""){tempBio=this._formBio}
+    else if(this.bio!=this._plBio){tempBio=this.bio}
     var tempImgLink = "";
-    if(this._formImgLink){tempImgLink=this._formImgLink}
-    else if(this.imgLink  && this.imgLink!=this._plImgLink){tempImgLink=this.imgLink}
+    if(this._formImgLink && this._formImgLink!=""){tempImgLink=this._formImgLink}
+    else if(this.imgLink!=this._plImgLink){tempImgLink=this.imgLink}
     const tempUser = {
       name:tempName,
       //password: this.password,
       bio: tempBio,
       //skills: this.skills,
       imgLink: tempImgLink,
-      id:this.currentUser.id
+      id: this.currentUser.id
     }
     // if(!this.validateService.validateURL(user.imgLink)){
     //   this.flashMessage.show('Please enter a valid web address of an image', {cssClass: 'alert-danger', timeout: 3000});
