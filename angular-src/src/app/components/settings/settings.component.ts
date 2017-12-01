@@ -13,7 +13,7 @@ import { userInfo } from 'os';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  user = JSON.parse(localStorage.getItem('user'));
+  currentUser = JSON.parse(localStorage.getItem('user'));
 
   //form placeholder values in case of no db entries
   _plName = "First Last";
@@ -77,7 +77,7 @@ export class SettingsComponent implements OnInit {
 
   //load existing settings into vars to act as placeholders
   getSettings() {
-    this.authService.getOneProfile(this.user.id).subscribe(profile => {
+    this.authService.getOneProfile(this.currentUser.id).subscribe(profile => {
       if(profile.success){
         if(profile.user.name){this.name = profile.user.name;} // Set components name var to db entry
         else if(!this.name){this.name = this._plName} //set to placeholder if no name in db
@@ -109,21 +109,20 @@ export class SettingsComponent implements OnInit {
       //password: this.password,
       bio: tempBio,
       //skills: this.skills,
-      imgLink: tempImgLink
+      imgLink: tempImgLink,
+      id:this.currentUser.id
     }
     // if(!this.validateService.validateURL(user.imgLink)){
     //   this.flashMessage.show('Please enter a valid web address of an image', {cssClass: 'alert-danger', timeout: 3000});
     //   return false;
     // }
-    //this.flashMessage.show('onSettingsSubmit() function reached', {cssClass: 'alert-success', timeout: 3000});
     this.authService.updateSettings(tempUser).subscribe(data => {
       if (data.success){
-        //this.flashMessage.show("name: " + tempUser.name + ", bio: " + tempUser.bio + ", imgLink: " + tempUser.imgLink, {cssClass: 'alert-success', timeout: 3000});
+        //this.flashMessage.show(data.msg, {cssClass: 'alert-success', timeout: 50000});
         this.router.navigate(['/profile']);
-        
       }
       else{
-        this.flashMessage.show(data.msg, {cssClass: 'alert-danger', timeout: 100000});
+        this.flashMessage.show('database update error', {cssClass: 'alert-danger', timeout: 3000});
       }
     })
   }

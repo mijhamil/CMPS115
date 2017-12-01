@@ -42,16 +42,6 @@ router.get('/checkUsername/:username', (req, res) => {
 
 // Settings
 router.put('/settings', (req, res, next) => {
-  // let user = new User({
-  //   name: req.body.name,
-  //   username: req.body.username,
-  //   password: req.body.password,
-  //   bio: req.body.bio,
-  //   imgLink: req.body.imgLink
-  //   //skills: req.body.skills,
-  //   //image: req.body.image
-  // });
-
   // User.findOne({id: req.params._id}, (err,user) => {
   //   if(err){
   //     res.json({success: false, msg:String(err)});
@@ -71,7 +61,7 @@ router.put('/settings', (req, res, next) => {
   //     });
   //   }
   // });
-  User.findOneAndUpdate({id: req.params._id}, req.body, (err,user) => {
+  User.findOneAndUpdate({_id: req.body.id}, req.body, (err,user) => {
     if(err){
       res.json({success: false, msg:String(err)});
     } else {
