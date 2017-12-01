@@ -8,8 +8,16 @@
 
 
     <ul class="list-group">
-      <h1 style="text-align:center">{{this.name}}'s Profile Page</h1>
-      <img class="profPic" src="{{imgLink}}"/>
+      <h1 style="text-align:center">Profile Page</h1>
+
+      <img class="profPic" src="{{imgLink}}"/><br>
+
+      <!-- Only show if name exists in db -->
+      <li class="list-group-item" *ngIf="this.name">
+        <h4 class="list-group-item-heading">Name</h4>
+        <p class="list-group-item-text">{{this.name}}</p>
+      </li>
+
       <li class="list-group-item">
         <h4 class="list-group-item-heading">Username</h4>
         <p class="list-group-item-text">{{this.username}}</p>
@@ -20,7 +28,8 @@
         <p class="list-group-item-text">{{this.email}}</p>
       </li>
 
-      <li class="list-group-item">
+      <!-- Only show if bio exists in db -->
+      <li class="list-group-item" *ngIf="this.bio">
         <h4 class="list-group-item-heading">Bio</h4>
         <p class="list-group-item-text">{{this.bio}}</p>
       </li>

@@ -7,7 +7,6 @@ div {
 .profPic {
     display: block;
     margin: auto;
-    padding: 5px;
     width: 12%;
     height: 12%;
     -webkit-border-radius: 50% !important;
