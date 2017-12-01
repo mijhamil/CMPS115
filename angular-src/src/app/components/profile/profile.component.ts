@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
   //user:Object;
   username = 'placeholder';
   email = 'placeholder@email.com';
-  bio:String;
+  bio = 'This bio is a placeholder.';
   currentUser = JSON.parse(localStorage.getItem('user'));
 
   constructor(
@@ -27,12 +27,13 @@ export class ProfileComponent implements OnInit {
 
   getProfileData() {
 
-    this.authService.getOneProfile(this.currentUser.id).subscribe(profile => {
-      if(profile.success){
+    this.authService.getOneProfile(this.currentUser.id).subscribe(profileData => {
+      if(profileData.success){
         //flash message for testing, remove later
         // this.flashMessage.show('Account Found!', {cssClass: 'alert-success', timeout: 3000});
-        this.username = profile.user.username; // Set username
-        this.email = profile.user.email; // Set e-mail
+        if(profileData.user.username){ this.username = profileData.user.username;} // Set username
+        if(profileData.user.email){ this.email = profileData.user.email;} // Set e-mail
+        if(profileData.user.bio){ this.bio = profileData.user.bio;} // Set bio
       } else{
         this.flashMessage.show('Profile data failed', {cssClass: 'alert-danger', timeout: 3000});
         // using Username field to test
