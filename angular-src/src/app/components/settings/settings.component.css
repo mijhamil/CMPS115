@@ -43,16 +43,39 @@ div {
     padding: 20px;
 }
 
-.profPic {
-    float: none;
-    margin: 0 auto;
-    width: 12%;
-    height: 12%;
-    -webkit-border-radius: 50% !important;
-    -moz-border-radius: 50% !important;
-    border-radius: 50% !important;
+#username{
+    padding-top:2%;
+    margin:auto;
+}
+
+#imgUrl{
+    padding-top:2%
 }
 
 .form-group{
     padding: 0px;
+}
+
+.img-align {
+    margin: auto;
+}
+
+#imgWrap{
+    text-align: center;    
+}
+
+h3{
+    padding-top:2%;
+}
+
+img {
+    margin: auto;
+    height: 175px;
+    width: 175px;
+    object-fit: cover;
+    border-radius: 50% !important;
+}
+
+form{
+    padding:10px;
 }
