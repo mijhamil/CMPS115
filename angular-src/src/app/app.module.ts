@@ -66,7 +66,7 @@ const appRoutes: Routes =  [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule,
-    Ng2MapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?libraries=visualization,places,drawing'}) // https://maps.google.com/maps/api/js?key=AIzaSyDuOPrKPfJ_tM6stQTAeYRwffkVV7c_FPw'})
+    Ng2MapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyDyT7qAyvh1f6NiNPSILMd3CyNQYj6dYK4&libraries=visualization,places,drawing'}) // https://maps.google.com/maps/api/js?key=AIzaSyDuOPrKPfJ_tM6stQTAeYRwffkVV7c_FPw'})
   ],
   providers: [ValidateService, AuthService, PostService, AuthGuard],
   bootstrap: [AppComponent]

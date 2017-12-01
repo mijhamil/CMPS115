@@ -9,15 +9,14 @@ import {AuthService} from '../../services/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
+  time;
   allPosts;
   username;
 
   constructor(
     private postService: PostService,
     private authService: AuthService
-  ) {
-    this.getAllPosts();
-  }
+  ) {}
 
   getAllPosts() {
     this.postService.getAllPosts().subscribe(data => {
@@ -27,10 +26,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     // Get profile username on page load
-   this.authService.getProfile().subscribe(profile => {
-     this.username = profile.user.username; // Used when creating new blog posts and comments
-   });
-    this.getAllPosts();
+   // this.authService.getProfile().subscribe(profile => {
+   //   this.username = profile.user.username; // Used when creating new blog posts and comments
+   // });
+   this.getAllPosts();
   }
 
 }

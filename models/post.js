@@ -15,6 +15,10 @@ const postSchema = mongoose.Schema({
     type: [mongoose.Schema.Types.Mixed],
     required: true
   },
+  locationstyle: {
+    type: String,
+    required: true
+  },
   date: {
     type: String,
     required: true
@@ -28,6 +32,10 @@ const postSchema = mongoose.Schema({
     required: true
   },
   details: {
+    type: String,
+    required: true
+  },
+  createdBy: {
     type: String,
     required: true
   }
