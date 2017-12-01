@@ -26,12 +26,12 @@ export class EditPostComponent implements OnInit {
   }
 
   // Deletes post
-  delete () {
+  delete() {
 
   }
 
   // Goes back to dashboard page without changing post
-  cancel () {
+  cancel() {
     this.router.navigate(['/dashboard'])
   }
 
