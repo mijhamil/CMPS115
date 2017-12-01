@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Edit Post</h1>
+  <br />
+  <div>
+    <form (submit)="onPostSubmit()" action="" method="get">
+      <label>Title</label>
+      <input type='text' [(ngModel)]="post.title" name="title" placeholder="*Post title" class = "form-control" required>
+
+      <label>Location</label>
+      <input places-auto-complete (initialized$)="initialized($event)" (place_changed)="placeChanged($event)" [types]="['geocode']" name="location" placeholder="Address" class="form-control" required>
+
+      <label>Date</label>
+      <input type="date" [(ngModel)]="date" name="date"  class="form-control" required>
+
+      <label>Time</label>
+      <input type="time" [(ngModel)]="time" name="time" placeholder = "12:00 PM PST" class="form-control" required>
+
+      <label>Pay rate</label>
+      <input type="text" [(ngModel)]="payrate" name="payrate" placeholder="$20.00" min="0" class="form-control" (blur)="formatPay()" required>
+
+      <label>Details</label>
+      <textarea type="area" [(ngModel)]="details" name="details" placeholder="What needs to be done..." class="form-control" required></textarea>
+
+      <button type="delete" class="btn btn-danger" (click)="delete()">Delete</button>
+      <button type="save" class="btn btn-success" (click)="save()">Save Changes</button>
+      <button type="cancel" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+
+      <!-- <input type="submit" class="btn btn-primary" value="Post"> -->
+
+    </form>
+  </div>
+</body>
+</html>

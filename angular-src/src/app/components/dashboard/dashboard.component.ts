@@ -27,8 +27,23 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  // Navigates to post form
   post() {
     this.router.navigate(['/posts'])
+  }
+
+  // Goes to editing post page
+  editPost() {
+    this.router.navigate(['/edit-post/'])
+  }
+
+  // Deletes post
+  deletePost() {
+
+  }
+
+  requestJob() {
+
   }
 
   ngOnInit() {

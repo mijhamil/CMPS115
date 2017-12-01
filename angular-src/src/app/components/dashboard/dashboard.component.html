@@ -1,22 +1,6 @@
 <br />
-<h1>All Jobs&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-  &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-  &#160;<button type="button" class="btn btn-success" (click)="post()">Post A Job</button> </h1>
+<h1>All Jobs<button type="postButton" class="btn btn-success" (click)="post()">Post A Job</button></h1>
 <hr>
-<!-- <div  class="panel panel-primary" *ngFor="let post of allPosts">
-  <div class="panel-heading">
-    <h2 class="panel-title">{{post.title}}</h2>
-  </div>
-
-  <div class="panel-body">
-    {{post.details}}
-  </div>
-</div> -->
-
 
 <!-- Panel Start -->
 <div *ngIf="!newPost">
@@ -37,7 +21,7 @@
     <div class="panel-footer">
       <strong>Location: </strong>{{ post.location }}
       <br />
-      <strong>Date: </strong>{{ post.date }} <!-- had to remove the formatting here, was causing error -->
+      <strong>Date: </strong>{{ post.date | date:'MM/dd/yyyy' }} <!-- had to remove the formatting here, was causing error -->
       <br />
       <strong>Time: </strong>{{ post.time }}
       <br />
@@ -47,11 +31,15 @@
       <br />
 
       <!-- Request Job Button -->
-        <button type="button" name="button" class="btn btn-success" *ngIf="username !== post.username">Request job</button>
+        <button type="requestJob" class="btn btn-success" (click)="requestJob()">Request job</button>
 
       <!-- Edit Button -->
-        <button type="button" name="button" class="btn btn-primary" *ngIf="username == post.username">Edit</button>
+        <!-- <a [routerLink]="['/edit-post/', post._id]"><button type="button" name="button" class="btn btn-primary">Edit</button></a> -->
+        <button type="edit" class="btn btn-primary" (click)="editPost()">Edit</button>
 
+      <!-- Delete Button -->
+        <!-- <a [routerLink]="['/edit-post/', post._id]"><button type="button" name="button" class="btn btn-primary">Edit</button></a> -->
+        <button type="delete" class="btn btn-secondary" (click)="deletePost()">Delete</button>
         <hr>
 
     <!-- Panel Footer End -->
