@@ -52,32 +52,32 @@ router.put('/settings', (req, res, next) => {
   //   //image: req.body.image
   // });
 
-  User.findOne({id: req.params._id}, (err,user) => {
-    if(err){
-      res.json({success: false, msg:String(err)});
-    } else {
-      user.name = req.params.name;
-      //user.bio = req.params.bio;
-      user.imgLink = req.params.imgLink;
-      // user.password = req.params.password;
-      user.save((err,user) => {
-        if(err){
-          res.json({success: false, msg: err});
-        }
-        else{
-          res.json({success: true, msg: JSON.stringify(req.params)});
-          //res.json({success: true, msg:JSON.stringify(user)});          
-        }
-      });
-    }
-  });
-  // User.findOneAndUpdate({id: req.params._id}, req.params, (err,user) => {
+  // User.findOne({id: req.params._id}, (err,user) => {
   //   if(err){
   //     res.json({success: false, msg:String(err)});
   //   } else {
-  //     res.json({success: true, msg:JSON.stringify(user)});
+  //     user.name = req.params.name;
+  //     //user.bio = req.params.bio;
+  //     user.imgLink = req.params.imgLink;
+  //     // user.password = req.params.password;
+  //     user.save((err,user) => {
+  //       if(err){
+  //         res.json({success: false, msg: err});
+  //       }
+  //       else{
+  //         res.json({success: true, msg: JSON.stringify(req.params)});
+  //         //res.json({success: true, msg:JSON.stringify(user)});          
+  //       }
+  //     });
   //   }
   // });
+  User.findOneAndUpdate({id: req.params._id}, req.body, (err,user) => {
+    if(err){
+      res.json({success: false, msg:String(err)});
+    } else {
+      res.json({success: true, msg:JSON.stringify(user)});
+    }
+  });
 });
 
 

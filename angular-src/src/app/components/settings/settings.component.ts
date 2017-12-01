@@ -25,10 +25,10 @@ export class SettingsComponent implements OnInit {
   //prevPage = this.location.back();
 
   //form vars
-  _formName:String;
-  _formBio:String;
-  _formImgLink:String;
-  
+  _formName:string;
+  _formBio:string;
+  _formImgLink:string;
+
   constructor(
     private flashMessage:FlashMessagesService,
     private authService:AuthService,
@@ -68,13 +68,19 @@ export class SettingsComponent implements OnInit {
   }
 
   //send a put request to save settings from form
-  onSettingsSubmit(name,bio,imgLink){
+  onSettingsSubmit(){
+    var tempName = "";
+    if(this._formName){tempName=this._formName}
+    var tempBio = "";
+    if(this._formBio){tempBio=this._formBio}
+    var tempImgLink = "";
+    if(this._formImgLink){tempImgLink=this._formImgLink}
     const tempUser = {
-      name: this._formName,
+      name:tempName,
       //password: this.password,
-      bio: this._formBio,
+      bio: tempBio,
       //skills: this.skills,
-      imgLink: this._formImgLink
+      imgLink: tempImgLink
     }
     // if(!this.validateService.validateURL(user.imgLink)){
     //   this.flashMessage.show('Please enter a valid web address of an image', {cssClass: 'alert-danger', timeout: 3000});
@@ -83,7 +89,9 @@ export class SettingsComponent implements OnInit {
     //this.flashMessage.show('onSettingsSubmit() function reached', {cssClass: 'alert-success', timeout: 3000});
     this.authService.updateSettings(tempUser).subscribe(data => {
       if (data.success){
-        this.flashMessage.show(data.msg, {cssClass: 'alert-success', timeout: 3000});
+        //this.flashMessage.show("name: " + tempUser.name + ", bio: " + tempUser.bio + ", imgLink: " + tempUser.imgLink, {cssClass: 'alert-success', timeout: 3000});
+        this.router.navigate(['/profile']);
+        
       }
       else{
         this.flashMessage.show(data.msg, {cssClass: 'alert-danger', timeout: 100000});
