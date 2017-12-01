@@ -10,10 +10,12 @@ router.post('/newPost', (req, res) => {
   const post = new Post({
     title: req.body.title,
     location: req.body.location,
+    locationstyle: req.body.locationstyle,
     date: req.body.date,
     time: req.body.time,
     payrate: req.body.payrate,
-    details: req.body.details
+    details: req.body.details,
+    createdBy: req.body.createdBy
   });
   post.save((err)=> {
     if (err) {

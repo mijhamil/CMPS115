@@ -19,9 +19,9 @@
 
     <!-- Panel Footer Start -->
     <div class="panel-footer">
-      <strong>Location: </strong>{{ post.location }}
+      <strong>Location: </strong>{{ post.locationstyle }}
       <br />
-      <strong>Date: </strong>{{ post.date | date:'MM/dd/yyyy' }} <!-- had to remove the formatting here, was causing error -->
+      <strong>Date: </strong>{{ post.date | date }} <!-- had to remove the formatting here, was causing error -->
       <br />
       <strong>Time: </strong>{{ post.time }}
       <br />

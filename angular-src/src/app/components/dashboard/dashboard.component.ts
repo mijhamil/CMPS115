@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+  time;
   allPosts;
   username;
 
@@ -48,10 +49,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     // Get profile username on page load
-   this.authService.getProfile().subscribe(profile => {
-     this.username = profile.user.username; // Used when creating new blog posts and comments
-   });
-    this.getAllPosts();
+   // this.authService.getProfile().subscribe(profile => {
+   //   this.username = profile.user.username; // Used when creating new blog posts and comments
+   // });
+   this.getAllPosts();
   }
 
 }

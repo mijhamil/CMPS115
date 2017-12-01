@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PostService } from '../../services/post.service';
+import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
 
@@ -11,28 +12,32 @@ import { Router } from '@angular/router';
 export class PostsComponent implements OnInit {
   title: String;
   location: any = {};
+  locationstyle: String;
   date: String;
   time: String;
   payrate: String;
   details: String;
-  username;
+  user;
   autocomplete: google.maps.places.Autocomplete;
   center: any;
 
   constructor(
     private flashMessage:FlashMessagesService,
     private postService:PostService,
+    private authService:AuthService,
     private router:Router,
     private ref:ChangeDetectorRef
   ) { }
 
   ngOnInit() {
+    this.user = JSON.parse(this.authService.getProfile()); // Get profile on initialization to associate with post
   }
 
   initialized(autocomplete: any) {
     this.autocomplete = autocomplete;
   }
 
+  // Updates the location object on autocomplete
   placeChanged(place) {
     this.center = place.geometry.location;
     for (let i = 0; i < place.address_components.length; i++) {
@@ -42,34 +47,58 @@ export class PostsComponent implements OnInit {
     this.ref.detectChanges();
   }
 
-  // Sends a post request
-  onPostSubmit() {
-    const post = {
-      title: this.title,
-      location: JSON.stringify(this.location), // JSON.stringify(this.location),
-      date: this.date,
-      time: this.time,
-      payrate: this.payrate,
-      details: this.details,
-      createdBy: this.username
+  // Formats the location as a string for displaying
+  locationStringify() {
+    this.locationstyle = '';
+    if(this.location.street_number !== undefined) {
+      this.locationstyle += this.location.street_number;
     }
-
-    this.postService.newPost(post).subscribe(data => {
-      if(data.success) {
-        this.flashMessage.show('Job posted!', {cssClass: 'alert-success', timeout: 3000});
-        this.router.navigate(['/dashboard']);
-      }
-      else {
-        this.flashMessage.show('Job posting failed', {cssClass: 'alert-danger', timeout: 3000});
-      }
-    })
+    if(this.location.route !== undefined) {
+      this.locationstyle += ' ' + this.location.route;
+    }
+    if(this.location.locality !== undefined) {
+      this.locationstyle += ', ' + this.location.locality;
+    }
+    if(this.location.administrative_area_level_1 !== undefined) {
+      this.locationstyle += ', ' + this.location.administrative_area_level_1;
+    }
+    if(this.location.postal_code !== undefined) {
+      this.locationstyle += ' ' + this.location.postal_code;
+    }
   }
 
-  // Formats the payrate input field with a dollar sign in front
-  formatPay() {
+  // Sends a post request
+  onPostSubmit() {
+  this.locationStringify();
+
+  console.log(this.user.username);
+  const post = {
+    title: this.title,
+    locationstyle: this.locationstyle,
+    location: this.location,
+    date: this.date,
+    time: this.time,
+    payrate: this.payrate,
+    details: this.details,
+    createdBy: this.user.username
+  }
+
+  this.postService.newPost(post).subscribe(data => {
+    if(data.success) {
+      this.flashMessage.show('Job posted!', {cssClass: 'alert-success', timeout: 3000});
+      this.router.navigate(['/dashboard']);
+    }
+    else {
+      this.flashMessage.show('Job posting failed', {cssClass: 'alert-danger', timeout: 3000});
+    }
+  })
+}
+
+// Formats the payrate input field, removing invalid characters and adding a dollar sign
+formatPay() {
     var pay = this.payrate;
 
-    pay = pay.replace(/\D/g,'');
+    pay = pay.replace(/[^0-9.]/,'');
     if (pay.indexOf("$") != 0 && pay.length != 0)
     {
       pay = pay.replace(/$/, '')

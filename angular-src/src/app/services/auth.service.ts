@@ -25,12 +25,13 @@ export class AuthService {
   }
 
   getProfile(){
-    let headers = new Headers();
+    return localStorage.getItem('user');
+    // let headers = new Headers();
     // this.loadToken();
     // headers.append('Authorization', this.authToken);
-    headers.append('Content-Type','application/json');
-    return this.http.get('http://localhost:3000/users/profile',{headers: headers})
-      .map(res => res.json());
+    // headers.append('Content-Type','application/json');
+    // return this.http.get('http://localhost:3000/users/profile',{headers: headers})
+    //   .map(res => res.json());
   }
 
   storeUserData(token, user){
