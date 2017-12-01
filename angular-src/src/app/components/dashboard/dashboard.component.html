@@ -2,22 +2,20 @@
 <h1>All Jobs<button type="postButton" class="btn btn-success" (click)="post()">Post A Job</button></h1>
 <hr>
 
-<!-- Panel Start -->
 <div *ngIf="!newPost">
-  <!-- Panel Outer Layer -->
   <div class="panel panel-primary" *ngFor="let post of allPosts">
 
-    <!-- Panel Title -->
+    <!-- Post's title -->
     <div class="panel-heading">
       <h3 class="panel-title"><strong>Title: </strong>{{ post.title }}</h3>
     </div>
 
-    <!-- Panel Body -->
+    <!-- Displays details of job -->
     <div class="panel-body">
       <strong>Details: </strong>{{ post.details }}
     </div>
 
-    <!-- Panel Footer Start -->
+    <!-- Displays information -->
     <div class="panel-footer">
       <strong>Location: </strong>{{ post.locationstyle }}
       <br />
@@ -34,18 +32,10 @@
         <button type="requestJob" class="btn btn-success" (click)="requestJob()">Request job</button>
 
       <!-- Edit Button -->
-        <!-- <a [routerLink]="['/edit-post/', post._id]"><button type="button" name="button" class="btn btn-primary">Edit</button></a> -->
         <button type="edit" class="btn btn-primary" (click)="editPost()">Edit</button>
 
       <!-- Delete Button -->
-        <!-- <a [routerLink]="['/edit-post/', post._id]"><button type="button" name="button" class="btn btn-primary">Edit</button></a> -->
         <button type="delete" class="btn btn-secondary" (click)="deletePost()">Delete</button>
         <hr>
-
-    <!-- Panel Footer End -->
-    <!-- Post Comment Box: End -->
-
   </div>
-  <!-- Panel Outer Layer -->
 </div>
-<!-- Panel End -->
