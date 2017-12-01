@@ -13,7 +13,7 @@ div {
     padding-bottom:2%;
 }
 
-.profPic {
+#profPic {
     display: block;
     margin: auto;
     width: 12%;

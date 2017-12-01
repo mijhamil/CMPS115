@@ -7,7 +7,7 @@
 
     <h1 id="profPageH1" style="text-align:center">Profile Page</h1>
 
-    <img class="profPic" src="{{imgLink}}"/>
+    <img id="profPic" src="{{imgLink}}"/>
 
     <ul id="fieldList" class="list-group">
       <!-- Only show if name exists in db -->
@@ -35,7 +35,7 @@
     </ul>
 
     <a class="btn btn-primary float-right" role="button" [routerLink]="['/settings']">Edit</a>
-    
+
   </div>
 
 </body>
