@@ -4,14 +4,12 @@
 
   <div class="container">
     <!-- Settings Button -->
-    <a class="btn btn-primary float-right" role="button" [routerLink]="['/settings']">Settings</a>
 
+    <h1 id="profPageH1" style="text-align:center">Profile Page</h1>
 
-    <ul class="list-group">
-      <h1 style="text-align:center">Profile Page</h1>
+    <img class="profPic" src="{{imgLink}}"/>
 
-      <img class="profPic" src="{{imgLink}}"/><br>
-
+    <ul id="fieldList" class="list-group">
       <!-- Only show if name exists in db -->
       <li class="list-group-item" *ngIf="this.name">
         <h4 class="list-group-item-heading">Name</h4>
@@ -36,6 +34,8 @@
 
     </ul>
 
+    <a class="btn btn-primary float-right" role="button" [routerLink]="['/settings']">Edit</a>
+    
   </div>
 
 </body>

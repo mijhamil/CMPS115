@@ -97,13 +97,13 @@ export class SettingsComponent implements OnInit {
   onSettingsSubmit(){
     var tempName = "";
     if(this._formName){tempName=this._formName}
-    else if(this.name){tempName=this.name}
+    else if(this.name && this.name!=this._plName){tempName=this.name}
     var tempBio = "";
     if(this._formBio){tempBio=this._formBio}
-    else if(this.bio){tempBio=this.bio}
+    else if(this.bio && this.bio!=this._plBio){tempBio=this.bio}
     var tempImgLink = "";
     if(this._formImgLink){tempImgLink=this._formImgLink}
-    else if(this.imgLink){tempImgLink=this.imgLink}
+    else if(this.imgLink  && this.imgLink!=this._plImgLink){tempImgLink=this.imgLink}
     const tempUser = {
       name:tempName,
       //password: this.password,
