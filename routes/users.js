@@ -45,7 +45,7 @@ router.get('/checkUsername/:username', (req, res) => {
 router.get('/checkEmail/:email', (req, res) => {
   const emailAddr = req.params.email;
 
-  User.findOne({email:emailAddr}, (err, user) => {
+  User.getUserByEmail(emailAddr, (err, user) => {
     if(err) {
       return res.json({ success: false, message: err });
     } else {
