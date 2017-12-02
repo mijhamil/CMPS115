@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');      
 
 // Register
 router.post('/register', (req, res, next) => {
@@ -40,23 +41,60 @@ router.get('/checkUsername/:username', (req, res) => {
   });
 });
 
-// Settings
-router.post('/settings', (req, res, next) => {
-  let user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    username: req.body.username,
-    password: req.body.password,
-    bio: req.body.bio,
-    skills: req.body.skills,
-    image: req.body.image
-  });
+// Check if email already in use
+router.get('/checkEmail/:email', (req, res) => {
+  const emailAddr = req.params.email;
 
-  User.editUser(user, (err, user) => {
-    if(err){
-      res.json({success: false, msg:'Failed to edit settings'});
+  User.getUserByEmail(emailAddr, (err, user) => {
+    if(err) {
+      return res.json({ success: false, message: err });
     } else {
-      res.json({success: true, msg:'Settings saved'});
+      if(!user) {
+        return res.json({ success: true, message: 'Email does not belong to a registered user'});
+      } else {
+        return res.json({ success: false, message: 'Email already in use'});
+      }
+    }
+  });
+});
+
+//to hash pws
+router.get('/hasher/:pw',(req,res,next) => {
+  const plainText = req.params.pw;
+  bcrypt.hash(plainText, 10, function(err, hash) {
+    // return hash
+    return res.json({success:true,message:hash});
+  });
+});
+
+// used to compare if a password matches a hash
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/comparePass', "
+router.post('/comparePass/',(req,res1,next) => {
+  const plainPass = req.body.plainPass;
+  const passHash = req.body.passHash;
+  hashRes = false;
+  bcrypt.compare(plainPass, passHash, (err, res) => {
+  // if match, res == true
+    if(err){
+      res1.json({success: false, message: 'hash comparison error'});
+    }
+    else if(res==true){
+      res1.json({success: true, message: 'plaintext and hash match!'});      
+    }
+    else{
+      res1.json({success: false, message: 'plaintext and hash do not match'});
+    }
+  });
+});
+
+// Settings
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/settings', "
+router.put('/settings', (req, res, next) => {
+  User.findOneAndUpdate({_id: req.body.id}, req.body, (err,user) => {
+    if(err){
+      res.json({success: false, msg:String(err)});
+    } else {
+      res.json({success: true, msg:JSON.stringify(user)});
     }
   });
 });
@@ -97,8 +135,26 @@ router.post('/authenticate', (req, res, next) => {
   });
 });
 
-// Profile
-// add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
+// Single User Profile
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
+router.get('/profile/:_id', (req, res, next) => {
+  const _id = req.params._id;
+
+  User.getUserById(_id, (err, user) => {
+    if(err) {
+      return res.json({ success: false, message: err });
+    } else {
+      if(!user) {
+        return res.json({ success: false, message: 'User not found.'});
+      } else {
+        return res.json({ success: true, user: user});
+      }
+    }
+  });
+});
+
+// All User Profiles
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
 router.get('/profile', (req, res, next) => {
   User.find({}, (err, users) => {
     if(err) {
@@ -112,5 +168,6 @@ router.get('/profile', (req, res, next) => {
     }
   })
 });
+
 
 module.exports = router;
