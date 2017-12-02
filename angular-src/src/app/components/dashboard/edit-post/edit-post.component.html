@@ -4,31 +4,31 @@
   <h1>Edit Post</h1>
   <br />
   <div>
-    <form (submit)="save()" *ngIf="!loading">
+    <form (submit)="savePost()" *ngIf="!loading">
       <label>Title</label>
-      <input type='text' [(ngModel)]="post.title" name="title" placeholder="*Post title" class = "form-control" required>
+      <input [disabled]="processing" type='text' [(ngModel)]="post.title" name="title" placeholder="*Post title" class = "form-control" required>
 
       <label>Location</label>
-      <input places-auto-complete (initialized$)="initialized($event)" (place_changed)="placeChanged($event)" [types]="['address']" name="location" placeholder="Address" value={{locationstyle}} class="form-control" required>
+      <input [disabled]="processing" places-auto-complete (initialized$)="initialized($event)" (place_changed)="placeChanged($event)" [types]="['address']" name="location" placeholder="Address" value={{locationstyle}} class="form-control" required>
 
       <label>Date</label>
-      <input type="date" [ngModel] ="post.date | date:'yyyy-MM-dd'" (ngModelChange)="post.date = $event" name="date" class="form-control" required>
+      <input [disabled]="processing" type="date" [ngModel] ="post.date | date:'yyyy-MM-dd'" (ngModelChange)="post.date = $event" name="date" class="form-control" required>
 
       <label>Time</label>
-      <input type="time" [ngModel] ="time" name="time" placeholder = "12:00 PM" class="form-control" required>
+      <input [disabled]="processing" type="time" [ngModel] ="time" name="time" placeholder = "12:00 PM" class="form-control" required>
 
       <label>Pay rate</label>
       <div class="input-group">
       <span class="input-group-addon">$</span>
-      <input type="number" [(ngModel)]="post.payrate" name="payrate" placeholder="20.00" min="0" step="0.01" class="form-control" required>
+      <input [disabled]="processing" type="number" [(ngModel)]="post.payrate" name="payrate" placeholder="20.00" min="0" step="0.01" class="form-control" required>
       </div>
 
       <label>Details</label>
-      <textarea type="area" [(ngModel)]="post.details" name="details" placeholder="What needs to be done..." class="form-control" required></textarea>
+      <textarea [disabled]="processing" type="area" [(ngModel)]="post.details" name="details" placeholder="What needs to be done..." class="form-control" required></textarea>
 
-      <button type="button" id="delete" class="btn btn-danger" (click)="deletePost()">Delete</button>
-      <button type="submit" class="btn btn-success">Save Changes</button>
-      <button type="button" id="cancel" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      <button [disabled]="processing" type="button" id="delete" class="btn btn-danger" (click)="deletePost()">Delete</button>
+      <button [disabled]="processing" type="submit" class="btn btn-success">Save Changes</button>
+      <button [disabled]="processing" type="button" id="cancel" class="btn btn-secondary" (click)="cancel()">Cancel</button>
 
     </form>
   </div>

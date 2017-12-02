@@ -13,7 +13,6 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class EditPostComponent implements OnInit {
 
-  loading = true;
   user;
   currentUrl;
   post;
@@ -22,6 +21,9 @@ export class EditPostComponent implements OnInit {
   location: any = {};
   locationstyle;
   time;
+
+  loading = true;
+  processing = false;
 
   constructor(
     private router: Router,
@@ -48,7 +50,6 @@ export class EditPostComponent implements OnInit {
         this.locationstyle = this.post.locationstyle + ', ' + this.post.location[0].country;
         this.time = new Date(this.post.date);
         this.time = this.datePipe.transform(this.time, 'HH:mm');
-        console.log(this.locationstyle);
         this.loading = false;
       }
     })
@@ -89,13 +90,16 @@ export class EditPostComponent implements OnInit {
   }
 
   // Saves new changes to selected post
-  save() {
+  savePost() {
+    this.processing = true;
+
     // Combine date and time input to store as complete date object
     this.post.date = this.datePipe.transform(this.post.date, 'yyyy-MM-dd') + ' ' + this.time;
     this.post.date = new Date(this.post.date);
 
-    if(this.location !== undefined) {
-      console.log('A');
+    if(!(Object.keys(this.location).length === 0 && (this.location).constructor == Object)) {
+      console.log(this.location);
+      console.log(typeof this.location);
       this.locationStringify();
       this.post.location = this.location;
       this.post.locationstyle = this.locationstyle;
@@ -104,6 +108,7 @@ export class EditPostComponent implements OnInit {
     this.postService.updatePost(this.post).subscribe(data => {
       if(!data.success) {
         this.flashMessage.show(data.message, {cssClass: 'alert-danger',timeout: 5000});
+        this.processing = false;
       } else {
         this.flashMessage.show(data.message, {cssClass: 'alert-success',timeout: 2000});
         setTimeout(() => {
