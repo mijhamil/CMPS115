@@ -7,6 +7,7 @@ import {Location} from '@angular/common';
 import {ValidateService} from '../../services/validate.service';
 import { userInfo } from 'os';
 import { PassThrough } from 'stream';
+import { TemplateParseResult } from '@angular/compiler';
 
 @Component({
   selector: 'app-settings',
@@ -143,6 +144,7 @@ export class SettingsComponent implements OnInit {
         return false;              
       }
       else if(this._formNewPswd != this._formRePswd){
+        this.rePwWarning = true;
         //this.flashMessage.show('New password does not match repeated password', {cssClass: 'alert-danger', timeout: 3000, close:'true',});
         return false;  
       }
@@ -157,38 +159,18 @@ export class SettingsComponent implements OnInit {
       }
       this.authService.compPwords(passes).subscribe(data => {
         if(data.success!=true){
-          //this.setCurrPwWarning(true);
           this.currPwWarning=true;
-          //this.flashMessage.show('firstMsg=' + this.currPwWarning, {cssClass: 'alert-danger', timeout: 3000});                    
-          //this.flashMessage.show('currPwWarning=' + !data.success, {cssClass: 'alert-danger', timeout: 3000});          
-          //return false;
+          return false;
         }
         else{
           //this.flashMessage.show('hashes are equal', {cssClass: 'alert-danger', timeout: 3000});
-          this.finishSettingsSubmit();          
+          this.submitHashing();          
         }
       });
     }
   }
 
-  finishSettingsSubmit(){
-    /*
-    function firstFunction(_callback){
-    // do some asynchronous work
-    // and when the asynchronous stuff is complete
-    _callback();    
-}
-
-    function secondFunction(){
-    // call first function and pass in a callback function which
-    // first function runs when it has completed
-    firstFunction(function() {
-        console.log('huzzah, I\'m done!');
-    });    
-}   */
-
-    //this.flashMessage.show('secondMsg=' + this.currPwWarning, {cssClass: 'alert-danger', timeout: 3000});          
-
+  submitHashing(){
     //make temp user object to pass into updateSettings() in authService
     var tempName = "";
     if(this._formName && this._formName!=""){tempName=this._formName}
@@ -200,28 +182,47 @@ export class SettingsComponent implements OnInit {
     if(this._formImgLink && this._formImgLink!=""){tempImgLink=this._formImgLink}
     else if(this.imgLink!=this._plImgLink){tempImgLink=this.imgLink}
     var tempPswd = this.oldPwHash;
+
+    //if new pw is entered, hash and pass tempUser into authService.updateSettings(tempUser)
     if(this._formNewPswd && this._formNewPswd!=""){
-      tempPswd = this._formNewPswd;
-    }
+      this.authService.hashPw(this._formNewPswd).subscribe(data => {
+        if(data.success==true){
+          this.flashMessage.show(data.message, {cssClass: 'alert-danger', timeout: 3000});                    
 
-    const tempUser = {
-      name:tempName,
-      password: tempPswd,
-      bio: tempBio,
-      //skills: this.skills,
-      imgLink: tempImgLink,
-      id: this.currentUser.id
+          var tempUser = {
+            name:tempName,
+            password: data.message,
+            bio: tempBio,
+            //skills: this.skills,
+            imgLink: tempImgLink,
+            id: this.currentUser.id
+          }
+            this.finishSubmit(tempUser);
+        }
+        else{
+          this.flashMessage.show('password save failure', {cssClass: 'alert-danger', timeout: 3000});
+          return false;          
+        }
+      });
     }
+    //if no new pw entered, use old pw hash as tempUser's pw and pass tempUser into authService.updateSettings(tempUser)
+    else{
+      var tempUser = {
+        name:tempName,
+        password: tempPswd,
+        bio: tempBio,
+        //skills: this.skills,
+        imgLink: tempImgLink,
+        id: this.currentUser.id
+      }
+      this.finishSubmit(tempUser);
+    }
+  }
 
-    //check if link to profile picture is a valid URL
-    // if(tempImgLink!="" && !this.validateService.validateURL(tempUser.imgLink)){
-    //   this.flashMessage.show('Please enter a valid web address of an image', {cssClass: 'alert-danger', timeout: 3000});
-    //   return false;
-    // }
-    //this.flashMessage.show('currPwWarning: ' + this.currPwWarning, {cssClass: 'alert-danger', timeout: 3000});          
+  finishSubmit(tempUser){
+    //call updateSetiings function to update the db with the tempUser passed in
     this.authService.updateSettings(tempUser).subscribe(data => {
       if (data.success){
-        //this.flashMessage.show(data.msg, {cssClass: 'alert-success', timeout: 50000});
         this.router.navigate(['/profile']);
       }
       else{
@@ -229,7 +230,7 @@ export class SettingsComponent implements OnInit {
       }
     })
   }
-
+  
 }
 
 

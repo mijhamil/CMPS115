@@ -58,6 +58,15 @@ router.get('/checkEmail/:email', (req, res) => {
   });
 });
 
+//to hash pws
+router.get('/hasher/:pw',(req,res,next) => {
+  const plainText = req.params.pw;
+  bcrypt.hash(plainText, 10, function(err, hash) {
+    // return hash
+    return res.json({success:true,message:hash});
+  });
+});
+
 // used to compare if a password matches a hash
 router.post('/comparePass/',(req,res1,next) => {
   const plainPass = req.body.plainPass;
