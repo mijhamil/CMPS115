@@ -79,6 +79,7 @@ export class EditPostComponent implements OnInit {
   }
 
   // Deletes post
+<<<<<<< HEAD
   deletePost() {
     if(confirm("Are you sure you want to delete your post?")) {
       window.scrollTo(0, 0);
@@ -93,10 +94,14 @@ export class EditPostComponent implements OnInit {
         }
       })
     }
+=======
+  delete() {
+
+>>>>>>> ecf13db03c2a43cc334bcd2d2c4da3feb2d7ad23
   }
 
   // Goes back to dashboard page without changing post
-  cancel () {
+  cancel() {
     this.router.navigate(['/dashboard'])
   }
 
