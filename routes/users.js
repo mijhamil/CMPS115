@@ -68,16 +68,13 @@ router.get('/hasher/:pw',(req,res,next) => {
 });
 
 // used to compare if a password matches a hash
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/comparePass', "
 router.post('/comparePass/',(req,res1,next) => {
   const plainPass = req.body.plainPass;
   const passHash = req.body.passHash;
   hashRes = false;
-  // Load hash from your password DB.
-  console.log(plainPass);
-  console.log(passHash);
   bcrypt.compare(plainPass, passHash, (err, res) => {
   // if match, res == true
-  console.log('pwMatch: ' + res);      
     if(err){
       res1.json({success: false, message: 'hash comparison error'});
     }
@@ -88,33 +85,11 @@ router.post('/comparePass/',(req,res1,next) => {
       res1.json({success: false, message: 'plaintext and hash do not match'});
     }
   });
-  // if(!res1 || !res1.success || res1.success!=true){
-  //   return res1.json({success:false, message:'plaintext and hash do not match'});    
-  // }
-  // return res1;
 });
 
 // Settings
+//possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/settings', "
 router.put('/settings', (req, res, next) => {
-  // User.findOne({id: req.params._id}, (err,user) => {
-  //   if(err){
-  //     res.json({success: false, msg:String(err)});
-  //   } else {
-  //     user.name = req.params.name;
-  //     //user.bio = req.params.bio;
-  //     user.imgLink = req.params.imgLink;
-  //     // user.password = req.params.password;
-  //     user.save((err,user) => {
-  //       if(err){
-  //         res.json({success: false, msg: err});
-  //       }
-  //       else{
-  //         res.json({success: true, msg: JSON.stringify(req.params)});
-  //         //res.json({success: true, msg:JSON.stringify(user)});          
-  //       }
-  //     });
-  //   }
-  // });
   User.findOneAndUpdate({_id: req.body.id}, req.body, (err,user) => {
     if(err){
       res.json({success: false, msg:String(err)});
