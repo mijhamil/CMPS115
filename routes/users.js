@@ -11,6 +11,7 @@ router.post('/register', (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     username: req.body.username,
+    displayname: req.body.username,
     password: req.body.password
   });
 
@@ -87,6 +88,7 @@ router.post('/authenticate', (req, res, next) => {
             id: user._id,
             name: user.name,
             username: user.username,
+            displayname: user.displayname,
             email: user.email
           }
         });

@@ -13,6 +13,11 @@ const UserSchema = mongoose.Schema({
   },
   username: {
     type: String,
+    lowercase: true,
+    required: true
+  },
+  displayname: {
+    type: String,
     required: true
   },
   password: {
@@ -31,7 +36,7 @@ const UserSchema = mongoose.Schema({
       type: Buffer,
       required: false
   }
-});
+}, { runSettersOnQuery: true });
 
 const User = module.exports = mongoose.model('User', UserSchema);
 

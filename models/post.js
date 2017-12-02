@@ -20,15 +20,11 @@ const postSchema = mongoose.Schema({
     required: true
   },
   date: {
-    type: String,
-    required: true
-  },
-  time: {
-    type: String,
+    type: Date,
     required: true
   },
   payrate: {
-    type: String,
+    type: Number,
     required: true
   },
   details: {
