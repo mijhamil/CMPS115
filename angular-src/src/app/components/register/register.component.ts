@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
 
   // Check if email is available
   checkEmail(){
-    this.validateService.checkEmail(this.email).subscribe(data => {
+    this.validateService.checkEmail(this.email.toLowerCase()).subscribe(data => {
       this.emailAvailable = data.success;
     });
   }

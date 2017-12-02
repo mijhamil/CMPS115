@@ -43,9 +43,9 @@ router.get('/checkUsername/:username', (req, res) => {
 
 // Check if email already in use
 router.get('/checkEmail/:email', (req, res) => {
-  const email = req.params.email;
+  const emailAddr = req.params.email;
 
-  User.getUserByEmail(email, (err, user) => {
+  User.findOne({email:emailAddr}, (err, user) => {
     if(err) {
       return res.json({ success: false, message: err });
     } else {

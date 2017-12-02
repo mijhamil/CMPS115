@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
   hideRePw = true; // if true, repeat pw field is hidden
   newPwWarning = false; // warm user in new pw is too short
   rePwWarning = true; // warn user if repeated pw doesn't match
-  currPwWarning = true; // warn user if current pw they entered isn't right
+  currPwWarning = false; // warn user if current pw they entered isn't right
 
   //vars to store form fields
   _formName:string;
@@ -187,7 +187,6 @@ export class SettingsComponent implements OnInit {
     if(this._formNewPswd && this._formNewPswd!=""){
       this.authService.hashPw(this._formNewPswd).subscribe(data => {
         if(data.success==true){
-          this.flashMessage.show(data.message, {cssClass: 'alert-danger', timeout: 3000});                    
 
           var tempUser = {
             name:tempName,
