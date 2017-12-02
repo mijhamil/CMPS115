@@ -6,15 +6,16 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 import {Location} from '@angular/common';
 import {ValidateService} from '../../services/validate.service';
 import { userInfo } from 'os';
+import { PassThrough } from 'stream';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
+
 export class SettingsComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem('user'));
-
   //form placeholder values in case of no db entries
   _plName = "First Last";
   _plCurrPswd = "Current Password";
@@ -36,7 +37,8 @@ export class SettingsComponent implements OnInit {
   hideNewPw = true; // if true, second pw field is hidden  
   hideRePw = true; // if true, repeat pw field is hidden
   newPwWarning = false; // warm user in new pw is too short
-  rePwWarning = true; // warm user if repeated pw doesn't match
+  rePwWarning = true; // warn user if repeated pw doesn't match
+  currPwWarning = true; // warn user if current pw they entered isn't right
 
   //vars to store form fields
   _formName:string;
@@ -52,7 +54,9 @@ export class SettingsComponent implements OnInit {
     private validateService:ValidateService,
     private router:Router,
     private location:Location
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit() {
     this.getSettings();
@@ -60,9 +64,10 @@ export class SettingsComponent implements OnInit {
 
   //change the value of hideRePw to show/hide second pw field
   setHideNewPw(){
-    if(this._formCurrPswd && !(this._formCurrPswd=="")){
+    if(this._formCurrPswd && this._formCurrPswd!=""){
       this.hideNewPw = false;
-      this.newPwWarning = true;  
+      //this.newPwWarning = true;
+      this.currPwWarning = false;
     }
     else{
       this.hideNewPw = true;
@@ -126,7 +131,8 @@ export class SettingsComponent implements OnInit {
   }
 
   //send a put request to save settings from form
-  onSettingsSubmit(){
+  onSettingsSubmit(){    
+    //make sure current pw is entered to save settings
     if(!this._formCurrPswd || this._formCurrPswd == ""){
       this.flashMessage.show('Please enter your current password to save settings', {cssClass: 'alert-danger', timeout: 3000});      
       return false;
@@ -141,6 +147,49 @@ export class SettingsComponent implements OnInit {
         return false;  
       }
     }
+
+    //check current password
+    if(this._formCurrPswd && this._formCurrPswd!=""){
+      //compare hashes
+      const passes = {
+        plainPass:this._formCurrPswd,
+        passHash:this.oldPwHash
+      }
+      this.authService.compPwords(passes).subscribe(data => {
+        if(data.success!=true){
+          //this.setCurrPwWarning(true);
+          this.currPwWarning=true;
+          //this.flashMessage.show('firstMsg=' + this.currPwWarning, {cssClass: 'alert-danger', timeout: 3000});                    
+          //this.flashMessage.show('currPwWarning=' + !data.success, {cssClass: 'alert-danger', timeout: 3000});          
+          //return false;
+        }
+        else{
+          //this.flashMessage.show('hashes are equal', {cssClass: 'alert-danger', timeout: 3000});
+          this.finishSettingsSubmit();          
+        }
+      });
+    }
+  }
+
+  finishSettingsSubmit(){
+    /*
+    function firstFunction(_callback){
+    // do some asynchronous work
+    // and when the asynchronous stuff is complete
+    _callback();    
+}
+
+    function secondFunction(){
+    // call first function and pass in a callback function which
+    // first function runs when it has completed
+    firstFunction(function() {
+        console.log('huzzah, I\'m done!');
+    });    
+}   */
+
+    //this.flashMessage.show('secondMsg=' + this.currPwWarning, {cssClass: 'alert-danger', timeout: 3000});          
+
+    //make temp user object to pass into updateSettings() in authService
     var tempName = "";
     if(this._formName && this._formName!=""){tempName=this._formName}
     else if(this.name!=this._plName){tempName=this.name}
@@ -150,18 +199,26 @@ export class SettingsComponent implements OnInit {
     var tempImgLink = "";
     if(this._formImgLink && this._formImgLink!=""){tempImgLink=this._formImgLink}
     else if(this.imgLink!=this._plImgLink){tempImgLink=this.imgLink}
+    var tempPswd = this.oldPwHash;
+    if(this._formNewPswd && this._formNewPswd!=""){
+      tempPswd = this._formNewPswd;
+    }
+
     const tempUser = {
       name:tempName,
-      //password: this.password,
+      password: tempPswd,
       bio: tempBio,
       //skills: this.skills,
       imgLink: tempImgLink,
       id: this.currentUser.id
     }
-    // if(!this.validateService.validateURL(user.imgLink)){
+
+    //check if link to profile picture is a valid URL
+    // if(tempImgLink!="" && !this.validateService.validateURL(tempUser.imgLink)){
     //   this.flashMessage.show('Please enter a valid web address of an image', {cssClass: 'alert-danger', timeout: 3000});
     //   return false;
     // }
+    //this.flashMessage.show('currPwWarning: ' + this.currPwWarning, {cssClass: 'alert-danger', timeout: 3000});          
     this.authService.updateSettings(tempUser).subscribe(data => {
       if (data.success){
         //this.flashMessage.show(data.msg, {cssClass: 'alert-success', timeout: 50000});
@@ -174,3 +231,5 @@ export class SettingsComponent implements OnInit {
   }
 
 }
+
+

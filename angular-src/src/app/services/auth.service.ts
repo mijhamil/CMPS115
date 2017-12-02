@@ -25,6 +25,13 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  compPwords(passes){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/users/comparePass/', passes, {headers: headers})
+    .map(res => res.json());
+  }
+
   //GET ALL PROFILES
   getProfile(){
     let headers = new Headers();

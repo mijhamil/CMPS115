@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');      
 
 // Register
 router.post('/register', (req, res, next) => {
@@ -55,6 +56,33 @@ router.get('/checkEmail/:email', (req, res) => {
       }
     }
   });
+});
+
+// used to compare if a password matches a hash
+router.post('/comparePass/',(req,res1,next) => {
+  const plainPass = req.body.plainPass;
+  const passHash = req.body.passHash;
+  hashRes = false;
+  // Load hash from your password DB.
+  console.log(plainPass);
+  console.log(passHash);
+  bcrypt.compare(plainPass, passHash, (err, res) => {
+  // if match, res == true
+  console.log('pwMatch: ' + res);      
+    if(err){
+      res1.json({success: false, message: 'hash comparison error'});
+    }
+    else if(res==true){
+      res1.json({success: true, message: 'plaintext and hash match!'});      
+    }
+    else{
+      res1.json({success: false, message: 'plaintext and hash do not match'});
+    }
+  });
+  // if(!res1 || !res1.success || res1.success!=true){
+  //   return res1.json({success:false, message:'plaintext and hash do not match'});    
+  // }
+  // return res1;
 });
 
 // Settings

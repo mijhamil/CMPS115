@@ -33,6 +33,7 @@
             <div class="form-group">
                 <label for="CurrPswd"><span id="asterisk">*</span> Current Password</label>
                 <input type="password" class="form-control" placeholder="{{this._plCurrPswd}}" name="currPswd" [(ngModel)]="_formCurrPswd" (keyup)="setHideNewPw()" required>
+                <label class="warningText" *ngIf="this.currPwWarning" for="currPswd">Current Password Incorrect. Please try again</label>                                
             </div>
 
             <div *ngIf="!this.hideNewPw" class="form-group">
