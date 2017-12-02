@@ -18,7 +18,10 @@
       <input type="time" [(ngModel)]="time" name="time" placeholder = "12:00 PM" class="form-control" required>
 
       <label>Pay rate</label>
-      <input type="text" [(ngModel)]="payrate" name="payrate" placeholder="$20.00" min="0" class="form-control" (blur)="formatPay()" required>
+      <div class="input-group">
+      <span class="input-group-addon">$</span>
+      <input type="number" [(ngModel)]="payrate" name="payrate" placeholder="20.00" min="0" step="0.01" class="form-control" required>
+      </div>
 
       <label>Details</label>
       <textarea type="area" [(ngModel)]="details" name="details" placeholder="What needs to be done..." class="form-control" required></textarea>

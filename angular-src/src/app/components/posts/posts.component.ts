@@ -10,16 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
+  user;
+
   title: String;
   location: any = {};
   locationstyle: String;
-  date: String;
-  time: String;
-  payrate: String;
+  payrate: Number;
   details: String;
-  user;
+  createdBy: String;
+
+  date;
+  time;
+
   autocomplete: google.maps.places.Autocomplete;
-  center: any;
 
   constructor(
     private flashMessage:FlashMessagesService,
@@ -30,7 +33,7 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = JSON.parse(this.authService.getProfile()); // Get profile on initialization to associate with post
+    this.user = this.authService.getProfile(); // Get profile on initialization to associate with post
   }
 
   initialized(autocomplete: any) {
@@ -39,7 +42,6 @@ export class PostsComponent implements OnInit {
 
   // Updates the location object on autocomplete
   placeChanged(place) {
-    this.center = place.geometry.location;
     for (let i = 0; i < place.address_components.length; i++) {
       let addressType = place.address_components[i].types[0];
       this.location[addressType] = place.address_components[i].long_name;
@@ -69,42 +71,29 @@ export class PostsComponent implements OnInit {
 
   // Sends a post request
   onPostSubmit() {
-  this.locationStringify();
+    this.locationStringify();
 
-  console.log(this.user.username);
-  const post = {
-    title: this.title,
-    locationstyle: this.locationstyle,
-    location: this.location,
-    date: this.date,
-    time: this.time,
-    payrate: this.payrate,
-    details: this.details,
-    createdBy: this.user.username
-  }
+    this.date = this.date + ' ' + this.time;
+    var datetime = new Date(this.date);
 
-  this.postService.newPost(post).subscribe(data => {
-    if(data.success) {
-      this.flashMessage.show('Job posted!', {cssClass: 'alert-success', timeout: 3000});
-      this.router.navigate(['/dashboard']);
-    }
-    else {
-      this.flashMessage.show('Job posting failed', {cssClass: 'alert-danger', timeout: 3000});
-    }
-  })
-}
-
-// Formats the payrate input field, removing invalid characters and adding a dollar sign
-formatPay() {
-    var pay = this.payrate;
-
-    pay = pay.replace(/[^0-9.]/,'');
-    if (pay.indexOf("$") != 0 && pay.length != 0)
-    {
-      pay = pay.replace(/$/, '')
-      pay = "$" + pay;
+    const post = {
+      title: this.title,
+      locationstyle: this.locationstyle,
+      location: this.location,
+      date: datetime,
+      payrate: this.payrate,
+      details: this.details,
+      createdBy: this.user.displayname
     }
 
-    this.payrate = pay;
+    this.postService.newPost(post).subscribe(data => {
+      if(data.success) {
+        this.flashMessage.show('Job posted!', {cssClass: 'alert-success', timeout: 3000});
+        this.router.navigate(['/dashboard']);
+      }
+      else {
+        this.flashMessage.show('Job posting failed', {cssClass: 'alert-danger', timeout: 3000});
+      }
+    })
   }
 }

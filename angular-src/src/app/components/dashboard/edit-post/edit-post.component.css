@@ -19,7 +19,7 @@ textarea[type=area], select {
   box-sizing: border-box;
 }
 
-button[type=delete] {
+button[id=delete] {
   width: 10%;
   background-color: #E74C3C;
   color: white;
@@ -30,7 +30,7 @@ button[type=delete] {
   cursor: pointer;
 }
 
-button[type=cancel] {
+button[id=cancel] {
   width: 15%;
   background-color: #FDFEFE;
   color: black;
@@ -42,7 +42,7 @@ button[type=cancel] {
   float: right;
 }
 
-button[type=save] {
+button[type=submit] {
   width: 15%;
   background-color: #4CAF50;
   color: white;
@@ -54,15 +54,19 @@ button[type=save] {
   float: right;
 }
 
-button[type=delete]:hover {
+input[type=number] {
+  padding: 12px 10px;
+}
+
+button[id=delete]:hover {
   background-color: #CB4335;
 }
 
-button[type=cancel]:hover {
+button[id=cancel]:hover {
   background-color: #F7F9F9;
 }
 
-button[type=save]:hover {
+button[type=submit]:hover {
   background-color: #45a049;
 }
 
@@ -75,4 +79,14 @@ div {
 h1 {
   margin-top: 30px;
   margin-left: 20px;
+}
+
+.input-group {
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.input-group-addon {
+  margin-top: 8px;
 }

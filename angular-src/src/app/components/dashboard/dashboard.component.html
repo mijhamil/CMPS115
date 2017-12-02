@@ -19,23 +19,23 @@
     <div class="panel-footer">
       <strong>Location: </strong>{{ post.locationstyle }}
       <br />
-      <strong>Date: </strong>{{ post.date | date }} <!-- had to remove the formatting here, was causing error -->
+      <strong>Date: </strong>{{ post.date | date: 'MMMM dd, y' }} <!-- had to remove the formatting here, was causing error -->
       <br />
-      <strong>Time: </strong>{{ post.time }}
+      <strong>Time: </strong>{{ post.date | date: 'h:mm a' }}
       <br />
-      <strong>Payrate: </strong>{{ post.payrate }}
+      <strong>Payrate: </strong>{{ post.payrate | currency: 'USD' : 'symbol' }}
       <br />
       <strong>Posted by: </strong>{{ post.createdBy }}
       <br />
 
       <!-- Request Job Button -->
-        <button type="requestJob" class="btn btn-success" (click)="requestJob()">Request job</button>
+      <button type="requestJob" class="btn btn-success" (click)="requestJob()">Request job</button>
 
       <!-- Edit Button -->
-        <button type="edit" class="btn btn-primary" (click)="editPost()">Edit</button>
+      <a [routerLink]="['/edit-post/', post._id]" *ngIf="user.displayname == post.createdBy"><button type="editJob" name="button" class="btn btn-inf">Edit</button></a>
 
       <!-- Delete Button -->
-        <button type="delete" class="btn btn-secondary" (click)="deletePost()">Delete</button>
-        <hr>
+      <button type="delete" *ngIf="user.displayname == post.createdBy" class="btn btn-secondary" (click)="deletePost(post._id)">Delete</button>
+      <hr>
   </div>
 </div>

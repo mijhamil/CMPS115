@@ -17,15 +17,15 @@ import { ManagejobsComponent } from './components/managejobs/managejobs.componen
 import { PendingrequestsComponent } from './components/pendingrequests/pendingrequests.component';
 import { InprogressjobsComponent } from './components/inprogressjobs/inprogressjobs.component';
 import { CompletedjobsComponent } from './components/completedjobs/completedjobs.component';
+import { CancelledjobsComponent } from './components/cancelledjobs/cancelledjobs.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { EditPostComponent } from './components/dashboard/edit-post/edit-post.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { PostService} from './services/post.service'
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
-import { CancelledjobsComponent } from './components/cancelledjobs/cancelledjobs.component';
-import { SettingsComponent } from './components/settings/settings.component';
-import { EditPostComponent } from './components/dashboard/edit-post/edit-post.component';
 
 
 const appRoutes: Routes =  [
@@ -41,8 +41,7 @@ const appRoutes: Routes =  [
   {path:'completed-jobs', component: CompletedjobsComponent, canActivate:[AuthGuard]},
   {path:'cancelled-jobs', component: CancelledjobsComponent, canActivate:[AuthGuard]},
   {path:'settings', component: SettingsComponent, canActivate:[AuthGuard]},
-  {path:'edit-post', component: EditPostComponent, canActivate:[AuthGuard]}
-
+  {path:'edit-post/:id', component: EditPostComponent, canActivate:[AuthGuard]}
 ]
 
 @NgModule({
@@ -69,7 +68,7 @@ const appRoutes: Routes =  [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule,
-    Ng2MapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyDyT7qAyvh1f6NiNPSILMd3CyNQYj6dYK4&libraries=visualization,places,drawing'}) // https://maps.google.com/maps/api/js?key=AIzaSyDuOPrKPfJ_tM6stQTAeYRwffkVV7c_FPw'})
+    Ng2MapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyDyT7qAyvh1f6NiNPSILMd3CyNQYj6dYK4&libraries=visualization,places,drawing'})
   ],
   providers: [ValidateService, AuthService, PostService, AuthGuard],
   bootstrap: [AppComponent]

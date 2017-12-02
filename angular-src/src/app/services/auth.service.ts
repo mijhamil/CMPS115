@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   getProfile(){
-    return localStorage.getItem('user');
+    return JSON.parse(localStorage.getItem('user'));
     // let headers = new Headers();
     // this.loadToken();
     // headers.append('Authorization', this.authToken);

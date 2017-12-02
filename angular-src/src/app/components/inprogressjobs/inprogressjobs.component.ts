@@ -30,10 +30,6 @@ export class InprogressjobsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Get profile username on page load
-   this.authService.getProfile().subscribe(profile => {
-     this.username = profile.user.username; // Used when creating new blog posts and comments
-   });
     this.getAllPosts();
   }
 
