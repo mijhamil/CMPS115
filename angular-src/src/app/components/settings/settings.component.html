@@ -31,12 +31,17 @@
             </div>
 
             <div class="form-group">
+                <label for="bio">Bio </label>
+                <textarea class="form-control" placeholder="{{this.bio}}" name="bio" [(ngModel)]="_formBio"></textarea>
+            </div>
+            
+            <div class="form-group">
                 <label for="CurrPswd"><span id="asterisk">*</span> Current Password</label>
-                <input type="password" class="form-control" placeholder="{{this._plCurrPswd}}" name="currPswd" [(ngModel)]="_formCurrPswd" (keyup)="setHideNewPw()" required>
+                <input type="password" class="form-control" placeholder="{{this._plCurrPswd}}" name="currPswd" [(ngModel)]="_formCurrPswd" required>
                 <label class="warningText" *ngIf="this.currPwWarning" for="currPswd">Current Password Incorrect. Please try again</label>                                
             </div>
 
-            <div *ngIf="!this.hideNewPw" class="form-group">
+            <div class="form-group">
                 <label for="newPswd">New Password </label>
                 <input type="password" class="form-control" placeholder="{{this._plNewPswd}}" [(ngModel)]="_formNewPswd" name="newPswd" (keyup)="setHideRePw()">
                 <label class="warningText" *ngIf="this.newPwWarning" for="newPswd">Must be at least 6 characters</label>                
@@ -46,11 +51,6 @@
                 <label for="rePswd">Retype New Password </label>
                 <input type="password" class="form-control" placeholder="{{this._plRePswd}}" [(ngModel)]="_formRePswd" name="RePswd" (keyup)="setRePwWarning()" Required>
                 <label class="warningText" *ngIf="this.rePwWarning" for="rePswd">Passwords do not match</label>                                    
-            </div>
-
-            <div class="form-group">
-                <label for="bio">Bio </label>
-                <textarea class="form-control" placeholder="{{this.bio}}" name="bio" [(ngModel)]="_formBio"></textarea>
             </div>
 
             <!-- <div class="form-group">

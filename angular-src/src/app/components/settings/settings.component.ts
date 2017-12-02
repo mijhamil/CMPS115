@@ -35,7 +35,7 @@ export class SettingsComponent implements OnInit {
   imgLink:string;
 
   changes = false; // track if there are changes to the form (not implemented)
-  hideNewPw = true; // if true, second pw field is hidden  
+  // hideNewPw = true; // if true, second pw field is hidden  
   hideRePw = true; // if true, repeat pw field is hidden
   newPwWarning = false; // warm user in new pw is too short
   rePwWarning = true; // warn user if repeated pw doesn't match
@@ -63,17 +63,17 @@ export class SettingsComponent implements OnInit {
     this.getSettings();
   }
 
-  //change the value of hideRePw to show/hide second pw field
-  setHideNewPw(){
-    if(this._formCurrPswd && this._formCurrPswd!=""){
-      this.hideNewPw = false;
-      //this.newPwWarning = true;
-      this.currPwWarning = false;
-    }
-    else{
-      this.hideNewPw = true;
-    }
-  }
+  // //change the value of hideRePw to show/hide second pw field
+  // setHideNewPw(){
+  //   if(this._formCurrPswd && this._formCurrPswd!=""){
+  //     this.hideNewPw = false;
+  //     //this.newPwWarning = true;
+  //     this.currPwWarning = false;
+  //   }
+  //   else{
+  //     this.hideNewPw = true;
+  //   }
+  // }
 
   //change the value of hideRePw to show/hide second pw field
   setHideRePw(){
