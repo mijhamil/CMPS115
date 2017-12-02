@@ -14,11 +14,11 @@ export class PostsComponent implements OnInit {
 
   title: String;
   location: any = {};
-  locationstyle: String;
   payrate: Number;
   details: String;
   createdBy: String;
 
+  today;
   date;
   time;
 
@@ -33,6 +33,8 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.today = Date.now();
+    this.today = new Date(this.today);
     this.user = this.authService.getProfile(); // Get profile on initialization to associate with post
   }
 
@@ -49,36 +51,36 @@ export class PostsComponent implements OnInit {
     this.ref.detectChanges();
   }
 
-  // Formats the location as a string for displaying
+  // Returns location formatted as a string for displaying
   locationStringify() {
-    this.locationstyle = '';
+    var locationstyle = '';
     if(this.location.street_number !== undefined) {
-      this.locationstyle += this.location.street_number;
+      locationstyle += this.location.street_number;
     }
     if(this.location.route !== undefined) {
-      this.locationstyle += ' ' + this.location.route;
+      locationstyle += ' ' + this.location.route;
     }
     if(this.location.locality !== undefined) {
-      this.locationstyle += ', ' + this.location.locality;
+      locationstyle += ', ' + this.location.locality;
     }
     if(this.location.administrative_area_level_1 !== undefined) {
-      this.locationstyle += ', ' + this.location.administrative_area_level_1;
+      locationstyle += ', ' + this.location.administrative_area_level_1;
     }
     if(this.location.postal_code !== undefined) {
-      this.locationstyle += ' ' + this.location.postal_code;
+      locationstyle += ' ' + this.location.postal_code;
     }
+    return locationstyle;
   }
 
   // Sends a post request
   onPostSubmit() {
-    this.locationStringify();
-
+    // Combine date and time inputs to store as complete date object
     this.date = this.date + ' ' + this.time;
     var datetime = new Date(this.date);
 
     const post = {
       title: this.title,
-      locationstyle: this.locationstyle,
+      locationstyle: this.locationStringify(),
       location: this.location,
       date: datetime,
       payrate: this.payrate,

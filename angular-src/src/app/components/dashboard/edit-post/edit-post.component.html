@@ -9,13 +9,13 @@
       <input type='text' [(ngModel)]="post.title" name="title" placeholder="*Post title" class = "form-control" required>
 
       <label>Location</label>
-      <input places-auto-complete (initialized$)="initialized($event)" (place_changed)="placeChanged($event)" [types]="['geocode']" name="location" placeholder="Address" value={{post.locationstyle}} class="form-control" required>
+      <input places-auto-complete (initialized$)="initialized($event)" (place_changed)="placeChanged($event)" [types]="['address']" name="location" placeholder="Address" value={{locationstyle}} class="form-control" required>
 
       <label>Date</label>
       <input type="date" [ngModel] ="post.date | date:'yyyy-MM-dd'" (ngModelChange)="post.date = $event" name="date" class="form-control" required>
 
       <label>Time</label>
-      <input type="time" [ngModel] ="post.date | date:'HH:mm'" (ngModelChange)="post.date = $event" name="time" placeholder = "12:00 PM PST" class="form-control" required>
+      <input type="time" [ngModel] ="time" name="time" placeholder = "12:00 PM" class="form-control" required>
 
       <label>Pay rate</label>
       <div class="input-group">

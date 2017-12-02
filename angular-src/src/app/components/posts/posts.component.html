@@ -12,7 +12,7 @@
       <input places-auto-complete (initialized$)="initialized($event)" (place_changed)="placeChanged($event)" [types]="['address']" name="location" placeholder="Address" class="form-control" required>
 
       <label>Date</label>
-      <input type="date" [(ngModel)]="date" name="date"  class="form-control" required>
+      <input type="date" [(ngModel)]="date" name="date" min="{{today | date:'yyyy-MM-dd'}}" class="form-control" required>
 
       <label>Time</label>
       <input type="time" [(ngModel)]="time" name="time" placeholder = "12:00 PM" class="form-control" required>
