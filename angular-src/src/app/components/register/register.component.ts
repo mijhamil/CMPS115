@@ -19,8 +19,8 @@ export class RegisterComponent implements OnInit {
   userAvailable;
   emailAvailable;
 
-  //to warm user if retyped pw doesn't match pw
-  pwLenWarning:boolean;
+  //to warm user if retyped pw doesn't match pw (omitted from release 1)
+  //pwLenWarning:boolean;
   rePwWarning:boolean;
 
   constructor(
@@ -47,15 +47,15 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  //warn the user the password is too short
-  setPwWarning(){
-    if(this.password.length < 6){
-      this.pwLenWarning = true;
-    }
-    else{
-      this.pwLenWarning = false;
-    }
-  }
+  //warn the user the password is too short (omitted from release 1)
+  // setPwWarning(){
+  //   if(this.password.length < 6){
+  //     this.pwLenWarning = true;
+  //   }
+  //   else{
+  //     this.pwLenWarning = false;
+  //   }
+  // }
 
   //check if pws match
   checkPass(){
@@ -66,15 +66,6 @@ export class RegisterComponent implements OnInit {
     this.rePwWarning = true;
     return false;
   }
-  //show or hide new password and retyped apssword match warning
-  // setRePwWarning(){
-  //   if(this.password == this._formRePswd){
-  //     this.rePwWarning = false;
-  //   }
-  //   else{
-  //     this.rePwWarning = true;
-  //   }
-  // }
 
   onRegisterSubmit(){
     const user = {
