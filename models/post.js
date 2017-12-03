@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const config = require('../config/database');
 const bodyParser = require('body-parser');
 
-// const regexDate = /^(0[1-9]|1[0-2])\D?([12]\d|0[1-9]|3[01])\D(\d{2})$/;
-
-
 const postSchema = mongoose.Schema({
   title: {
     type: String,
@@ -15,19 +12,27 @@ const postSchema = mongoose.Schema({
     type: [mongoose.Schema.Types.Mixed],
     required: true
   },
-  date: {
+  locationstyle: {
     type: String,
     required: true
   },
-  time: {
-    type: String,
+  date: {
+    type: Date,
     required: true
   },
   payrate: {
-    type: String,
+    type: Number,
     required: true
   },
   details: {
+    type: String,
+    required: true
+  },
+  createdBy: {
+    type: String,
+    required: true
+  },
+  email: {
     type: String,
     required: true
   }

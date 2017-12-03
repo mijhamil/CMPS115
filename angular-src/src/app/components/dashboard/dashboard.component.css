@@ -1,1 +1,50 @@
 
+button[type=postButton] {
+  background-color: #4CAF50;
+  color: white;
+  height: 50px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+button[type=postButton]:hover {
+  background-color: #45a049;
+}
+
+button[type=requestJob] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=requestJob]:hover {
+  background-color: #45a049;
+}
+
+button[type=editJob] {
+  background-color: #3498DB;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=editJob]:hover {
+  background-color: #2E86C1;
+}
+
+button[type=delete] {
+  background-color: #E74C3C;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=delete]:hover {
+  background-color: #CB4335;
+}

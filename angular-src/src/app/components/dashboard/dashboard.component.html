@@ -1,57 +1,43 @@
 <br />
-<h1>All Jobs</h1>
+<h1>All Jobs<button type="postButton" class="btn btn-success" (click)="post()">Post A Job</button></h1>
 <hr>
-<!-- <div  class="panel panel-primary" *ngFor="let post of allPosts">
-  <div class="panel-heading">
-    <h2 class="panel-title">{{post.title}}</h2>
-  </div>
 
-  <div class="panel-body">
-    {{post.details}}
-  </div>
-</div> -->
-
-
-<!-- Panel Start -->
 <div *ngIf="!newPost">
-  <!-- Panel Outer Layer -->
   <div class="panel panel-primary" *ngFor="let post of allPosts">
 
-    <!-- Panel Title -->
+    <!-- Post's title -->
     <div class="panel-heading">
-      <h3 class="panel-title"><strong>Title: </strong>{{ post.title }}</h3>
+      <h3 class="panel-title"><strong>{{ post.title }}</strong></h3>
     </div>
 
-    <!-- Panel Body -->
+    <!-- Displays details of job -->
     <div class="panel-body">
       <strong>Details: </strong>{{ post.details }}
     </div>
 
-    <!-- Panel Footer Start -->
+    <!-- Displays information -->
     <div class="panel-footer">
-      <strong>Location: </strong>{{ post.location }}
+      <strong>Location: </strong>{{ post.locationstyle }}
       <br />
-      <strong>Date: </strong>{{ post.date }} <!-- had to remove the formatting here, was causing error -->
+      <strong>Date: </strong>{{ post.date | date: 'MMMM dd, y' }} <!-- had to remove the formatting here, was causing error -->
       <br />
-      <strong>Time: </strong>{{ post.time }}
+      <strong>Time: </strong>{{ post.date | date: 'h:mm a' }}
       <br />
-      <strong>Payrate: </strong>{{ post.payrate }}
+      <strong>Payrate: </strong>{{ post.payrate | currency: 'USD' : 'symbol' }}
       <br />
       <strong>Posted by: </strong>{{ post.createdBy }}
       <br />
+      <strong>Contact: </strong>{{ post.email }}
+      <br />
 
       <!-- Request Job Button -->
-        <button type="button" name="button" class="btn btn-success" *ngIf="username !== post.username">Request job</button>
+      <button type="requestJob" class="btn btn-success" (click)="requestJob()">Request job</button>
 
       <!-- Edit Button -->
-        <button type="button" name="button" class="btn btn-primary" *ngIf="username == post.username">Edit</button>
+      <a [routerLink]="['/edit-post/', post._id]" *ngIf="user.displayname == post.createdBy"><button type="editJob" name="button" class="btn btn-inf">Edit</button></a>
 
-        <hr>
-
-    <!-- Panel Footer End -->
-    <!-- Post Comment Box: End -->
-
+      <!-- Delete Button -->
+      <button type="delete" *ngIf="user.displayname == post.createdBy" class="btn btn-secondary" (click)="deletePost(post._id)">Delete</button>
+      <hr>
   </div>
-  <!-- Panel Outer Layer -->
 </div>
-<!-- Panel End -->

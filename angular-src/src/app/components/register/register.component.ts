@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   name: String;
   username: String;
+  displayname: String;
   email: String;
   password: String;
   rePassword: String;
@@ -80,6 +81,7 @@ export class RegisterComponent implements OnInit {
       name: this.name,
       email: this.email.toLowerCase(),
       username: this.username,
+      displayname: this.username,
       password: this.password
     }
  
