@@ -2,8 +2,8 @@
   <h1>Choredash: Odd Job Finder</h1>
   <p class="lead">Welcome to Choredash! Find jobs posted by students on campus today!</p>
   <div>
-    <a *ngIf="!authService.loggedIn()" class="btn btn-primary" [routerLink]="['/register']">Sign Up</a>
-    <a *ngIf="!authService.loggedIn()" class="btn btn-default" [routerLink]="['/login']">Log In</a>
+    <a *ngIf="!authService.loggedIn()" class="btn btn-success" [routerLink]="['/register']">Sign Up</a>
+    <a *ngIf="!authService.loggedIn()" class="btn btn-primary" [routerLink]="['/login']">Log In</a>
     <a *ngIf="authService.loggedIn()" class="btn btn-primary" [routerLink]="['/dashboard']">Find a Job</a>
   </div>
 </div>
