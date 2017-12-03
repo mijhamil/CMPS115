@@ -1,6 +1,6 @@
 <div class="jumbotron text-center">
-  <h1>Choredash: Odd Job Finder</h1>
-  <p class="lead">Welcome to Choredash! Find jobs posted by students on campus today!</p>
+  <h1>ChoreDash: Odd Job Finder</h1>
+  <p class="lead">Welcome to ChoreDash! Find and post jobs near the UCSC campus today!</p>
   <div>
     <a *ngIf="!authService.loggedIn()" class="btn btn-primary" [routerLink]="['/register']">Sign Up</a>
     <a *ngIf="!authService.loggedIn()" class="btn btn-default" [routerLink]="['/login']">Log In</a>
@@ -10,15 +10,15 @@
 
 <div class="row">
   <div class="col-md-4">
-    <h3>Express Backend</h3>
-    <p>A rock solid Node.js/Express server using Mongoose to organize models and query the database</p>
+    <h3>Post Gigs</h3>
+    <p>List odd jobs on and around the UC Santa Cruz campus</p>
   </div>
   <div class="col-md-4">
-    <h3>Angular-CLI</h3>
-    <p>Angular-CLI to generate components, services and more. Local dev server and easy compilation</p>
+    <h3>Earn Cash</h3>
+    <p>Get paid on the spot</p>
   </div>
   <div class="col-md-4">
-    <h3>JWT Tokens</h3>
-    <p>Full featured authentication using JSON web tokens. Login and store user data</p>
+    <h3>Short-Term</h3>
+    <p>Jobs that range from a few hours to a few days</p>
   </div>
 </div>

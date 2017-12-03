@@ -1,3 +1,4 @@
+<br>
 <h2 class="page-header">Sign up</h2>
 <form (submit)="onRegisterSubmit()">
   <div class="form-group">
@@ -15,12 +16,12 @@
   <div class="form-group">
     <label>Password</label>
     <input type="password" [(ngModel)]="password" name="password" class="form-control" (keyup)="setPwWarning()">
-    <label class="warningText" *ngIf="this.pwLenWarning" for="password">Must be at least 6 characters</label>                                        
+    <label class="warningText" *ngIf="this.pwLenWarning" for="password">Must be at least 6 characters</label>
   </div>
   <div class="form-group">
     <label for="rePswd">Retype Password </label>
     <input type="password" class="form-control" [(ngModel)]="rePassword" name="RePswd" (keyup)="checkPass()">
-    <label class="warningText" *ngIf="this.rePwWarning" for="rePswd">Passwords do not match</label>                                    
+    <label class="warningText" *ngIf="this.rePwWarning" for="rePswd">Passwords do not match</label>
 </div>
   <input type="submit" class="btn btn-primary" value="Create Account">
 </form>
