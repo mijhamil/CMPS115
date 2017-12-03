@@ -13,7 +13,7 @@ button[type=postButton]:hover {
   background-color: #45a049;
 }
 
-button[type=requestJob] {
+/* button[type=requestJob] {
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -23,7 +23,7 @@ button[type=requestJob] {
 
 button[type=requestJob]:hover {
   background-color: #45a049;
-}
+} */
 
 button[type=editJob] {
   background-color: #3498DB;

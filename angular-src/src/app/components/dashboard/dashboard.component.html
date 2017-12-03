@@ -31,7 +31,7 @@
       <br />
 
       <!-- Request Job Button -->
-      <button type="requestJob" class="btn btn-success" (click)="requestJob()">Request job</button>
+      <!-- <button type="requestJob" class="btn btn-success" (click)="requestJob()">Request job</button> -->
 
       <!-- Edit Button -->
       <a [routerLink]="['/edit-post/', post._id]" *ngIf="user.displayname == post.createdBy"><button type="editJob" name="button" class="btn btn-inf">Edit</button></a>
