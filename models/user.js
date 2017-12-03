@@ -5,7 +5,8 @@ const config = require('../config/database');
 // User Schema
 const UserSchema = mongoose.Schema({
   name: {
-    type: String
+    type: String,
+    required: false
   },
   email: {
     type: String,
@@ -28,13 +29,13 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: false
   },
-  skills: {
-      type: Array,
-      required: false
-  },
-  image: {
-      type: Buffer,
-      required: false
+  // skills: {
+  //     type: Array,
+  //     required: false
+  // },
+  imgLink: {
+      type: String,
+       required: false
   }
 }, { runSettersOnQuery: true });
 
@@ -45,7 +46,12 @@ module.exports.getUserById = function(id, callback){
 }
 
 module.exports.getUserByUsername = function(username, callback){
-  const query = {username: username}
+  const query = {username: username};
+  User.findOne(query, callback);
+}
+
+module.exports.getUserByEmail = function(email, callback){
+  const query = {email: email};
   User.findOne(query, callback);
 }
 
@@ -59,9 +65,9 @@ module.exports.addUser = function(newUser, callback){
   });
 }
 
-module.exports.editUser = function(user, callback){
-  user.save(callback);
-}
+// module.exports.editUser = function(user, callback){
+//   user.save(callback);
+// }
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
   bcrypt.compare(candidatePassword, hash, (err, isMatch) => {

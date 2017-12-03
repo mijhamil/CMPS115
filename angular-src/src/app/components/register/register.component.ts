@@ -15,7 +15,13 @@ export class RegisterComponent implements OnInit {
   displayname: String;
   email: String;
   password: String;
+  rePassword: String;
   userAvailable;
+  emailAvailable;
+
+  //to warm user if retyped pw doesn't match pw
+  pwLenWarning:boolean;
+  rePwWarning:boolean;
 
   constructor(
     private validateService: ValidateService,
@@ -34,6 +40,42 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  // Check if email is available
+  checkEmail(){
+    this.validateService.checkEmail(this.email.toLowerCase()).subscribe(data => {
+      this.emailAvailable = data.success;
+    });
+  }
+
+  //warn the user the password is too short
+  setPwWarning(){
+    if(this.password.length < 6){
+      this.pwLenWarning = true;
+    }
+    else{
+      this.pwLenWarning = false;
+    }
+  }
+
+  //check if pws match
+  checkPass(){
+    if(this.password==this.rePassword){
+      this.rePwWarning = false;
+      return true;
+    }
+    this.rePwWarning = true;
+    return false;
+  }
+  //show or hide new password and retyped apssword match warning
+  // setRePwWarning(){
+  //   if(this.password == this._formRePswd){
+  //     this.rePwWarning = false;
+  //   }
+  //   else{
+  //     this.rePwWarning = true;
+  //   }
+  // }
+
   onRegisterSubmit(){
     const user = {
       name: this.name,
@@ -42,7 +84,15 @@ export class RegisterComponent implements OnInit {
       displayname: this.username,
       password: this.password
     }
-
+ 
+    if(this.password.length < 6){
+      return false;              
+    }
+  
+    //exit out of function if passwords don't match
+    if(user.password!=this.rePassword){
+      return false;
+    }
     // Required Fields
     if(!this.validateService.validateRegister(user)){
       this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
@@ -52,6 +102,12 @@ export class RegisterComponent implements OnInit {
     // Validate Email
     if(!this.validateService.validateEmail(user.email)){
       this.flashMessage.show('Please use a valid @ucsc.edu email', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
+    }
+
+    // Check if email is available
+    if(!this.emailAvailable) {
+      this.flashMessage.show('Email already in use. Please try logging in', {cssClass: 'alert-danger', timeout: 3000});
       return false;
     }
 

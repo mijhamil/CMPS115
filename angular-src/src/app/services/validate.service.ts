@@ -10,12 +10,40 @@ export class ValidateService {
     return this.http.get('http://localhost:3000/users/checkUsername/' + username).map(res => res.json());
   }
 
+  checkEmail(email) {
+    return this.http.get('http://localhost:3000/users/checkEmail/' + email).map(res => res.json());
+  }
+
   validateRegister(user){
     if(user.name == undefined || user.email == undefined ||user.password == undefined){
       return false;
     }else{
       return true;
     }
+  }
+
+  //check if both passwords entered match for registration/settings pages
+  validataPassword(pswd,retypedPswd){
+    if (pswd === retypedPswd) {
+      return true;
+    }
+    return false;
+  }
+
+  //check if string is url
+  validateURL(address) {
+    //url checking regExp from Devshed
+    var URLPattern = new RegExp('^(https?:\/\/)?'+ // protocol
+      '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
+      '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
+      '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
+      '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
+      '(\#[-a-z\d_]*)?$','i'); // fragment locater
+    if(!URLPattern.test(address)) {
+      alert("Please enter a valid web address");
+      return false;
+    }
+    return true;
   }
 
   validateEmail(email){
