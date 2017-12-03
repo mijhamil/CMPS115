@@ -55,10 +55,10 @@ export class PostsComponent implements OnInit {
   locationStringify() {
     var locationstyle = '';
     if(this.location.street_number !== undefined) {
-      locationstyle += this.location.street_number;
+      locationstyle += this.location.street_number + ' ';
     }
     if(this.location.route !== undefined) {
-      locationstyle += ' ' + this.location.route;
+      locationstyle += this.location.route;
     }
     if(this.location.locality !== undefined) {
       locationstyle += ', ' + this.location.locality;
@@ -74,29 +74,34 @@ export class PostsComponent implements OnInit {
 
   // Sends a post request
   onPostSubmit() {
-    // Combine date and time inputs to store as complete date object
-    this.date = this.date + ' ' + this.time;
-    var datetime = new Date(this.date);
+    if(Object.keys(this.location).length === 0 && (this.location).constructor == Object) {
+      this.flashMessage.show('Please choose a valid address.', {cssClass: 'alert-danger', timeout: 3000});
+      window.scrollTo(0, 0);
+    } else {
+      // Combine date and time inputs to store as complete date object
+      this.date = this.date + ' ' + this.time;
+      var datetime = new Date(this.date);
 
-    const post = {
-      title: this.title,
-      locationstyle: this.locationStringify(),
-      location: this.location,
-      date: datetime,
-      payrate: this.payrate,
-      details: this.details,
-      createdBy: this.user.displayname,
-      email: this.user.email
+      const post = {
+        title: this.title,
+        locationstyle: this.locationStringify(),
+        location: this.location,
+        date: datetime,
+        payrate: this.payrate,
+        details: this.details,
+        createdBy: this.user.displayname,
+        email: this.user.email
+      }
+
+      this.postService.newPost(post).subscribe(data => {
+        if(data.success) {
+          this.flashMessage.show('Job posted!', {cssClass: 'alert-success', timeout: 3000});
+          this.router.navigate(['/dashboard']);
+        }
+        else {
+          this.flashMessage.show('Job posting failed', {cssClass: 'alert-danger', timeout: 3000});
+        }
+      })
     }
-
-    this.postService.newPost(post).subscribe(data => {
-      if(data.success) {
-        this.flashMessage.show('Job posted!', {cssClass: 'alert-success', timeout: 3000});
-        this.router.navigate(['/dashboard']);
-      }
-      else {
-        this.flashMessage.show('Job posting failed', {cssClass: 'alert-danger', timeout: 3000});
-      }
-    })
   }
 }
