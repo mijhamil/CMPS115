@@ -34,10 +34,10 @@ export class PostService {
   }
 
   // Updates a post with supplied object
-  updatePost(post) {
+  updatePost(user, post) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:3000/' + 'posts/updatePost', post, {headers: headers}).map(res => res.json());
+    return this.http.put('http://localhost:3000/' + 'posts/updatePost/' + user.displayname, post, {headers: headers}).map(res => res.json());
   }
 
   // Deletes post with specified ID from the database

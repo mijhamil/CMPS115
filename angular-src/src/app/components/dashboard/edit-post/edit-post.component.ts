@@ -98,14 +98,12 @@ export class EditPostComponent implements OnInit {
     this.post.date = new Date(this.post.date);
 
     if(!(Object.keys(this.location).length === 0 && (this.location).constructor == Object)) {
-      console.log(this.location);
-      console.log(typeof this.location);
       this.locationStringify();
       this.post.location = this.location;
       this.post.locationstyle = this.locationstyle;
     }
     window.scrollTo(0, 0);
-    this.postService.updatePost(this.post).subscribe(data => {
+    this.postService.updatePost(this.user, this.post).subscribe(data => {
       if(!data.success) {
         this.flashMessage.show(data.message, {cssClass: 'alert-danger',timeout: 5000});
         this.processing = false;
