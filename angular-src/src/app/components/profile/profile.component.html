@@ -35,7 +35,7 @@
     </ul>
 
     <!-- Settings Button -->
-    <a class="btn btn-primary float-right" role="button" [routerLink]="['/settings']">Edit</a>
+    <a class="btn btn-primary float-right" *ngIf="profileViewerIsCurrentUser()" role="button" [routerLink]="['/settings']">Edit</a>
 
   </div>
 

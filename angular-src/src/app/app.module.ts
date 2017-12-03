@@ -33,7 +33,7 @@ const appRoutes: Routes =  [
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path:'profile/:username', component: ProfileComponent, canActivate:[AuthGuard]},
   {path:'posts', component: PostsComponent, canActivate:[AuthGuard]},
   {path:'manage-jobs', component: ManagejobsComponent, canActivate:[AuthGuard]},
   {path:'pending-requests', component: PendingrequestsComponent, canActivate:[AuthGuard]},

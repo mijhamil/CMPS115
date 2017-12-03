@@ -50,6 +50,16 @@ export class AuthService {
     //   .map(res => res.json());
   }
 
+  //get profile from db by username
+  getProfileByUsername(username){
+    let headers = new Headers();
+    // this.loadToken();
+    // headers.append('Authorization', this.authToken);
+    headers.append('Content-Type','application/json');
+    return this.http.get('http://localhost:3000/users/profile/' + username, {headers: headers})
+      .map(res => res.json());
+  }
+
   //GET ONE PROFILE
   getOneProfile(userID){
     let headers = new Headers();
@@ -66,6 +76,16 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
     this.user = user;
+  }
+
+  //returns user that is currently logged in
+  getCurrentUser(){
+    if(!this.user){
+      return null;
+    }
+    else{
+      return this.user;
+    }
   }
 
   updateSettings(user){

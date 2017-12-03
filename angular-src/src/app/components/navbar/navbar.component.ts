@@ -9,6 +9,8 @@ import {FlashMessagesService} from 'angular2-flash-messages';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  
+  username = "navbarComponentUsernameString";
 
   constructor(
     private authService:AuthService,

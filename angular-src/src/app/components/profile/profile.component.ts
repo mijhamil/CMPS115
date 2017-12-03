@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import {Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,21 +16,43 @@ export class ProfileComponent implements OnInit {
   email = '';
   bio = '';
   imgLink = "https://i.imgur.com/6eOlEUB.jpg";
-  currentUser = JSON.parse(localStorage.getItem('user'));
+  //currentUser = JSON.parse(localStorage.getItem('user'));
+  private sub: any; //to subscribe the username param passed into component
 
   constructor(
     private authService:AuthService,
     private flashMessage:FlashMessagesService,
-    private router:Router
+    private router:Router,
+    private route:ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.getProfileData();
+    //this.currentUser = JSON.parse(localStorage.getItem('user'));                
+    this.sub = this.route.params.subscribe(params => {
+      this.username = params['username'];
+      if(this.username == "navbarComponentUsernameString"){
+        const user = this.authService.getCurrentUser();
+        this.router.navigate(['/profile',user.username]);        
+      }
+      else{
+        this.getProfileData(this.username);        
+      }
+    });
   }
 
-  getProfileData() {
+  profileViewerIsCurrentUser(){
+    const user = this.authService.getCurrentUser();
+    if(this.username == user.username){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
-    this.authService.getOneProfile(this.currentUser.id).subscribe(profileData => {
+  getProfileData(username) {
+
+    this.authService.getProfileByUsername(username).subscribe(profileData => {
       if(profileData.success){
         //IF data from getOneProfile for each of these fields exists, then replace
         //  local variables with that data. Otherwise don't.

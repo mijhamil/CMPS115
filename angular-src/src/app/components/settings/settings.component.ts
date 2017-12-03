@@ -60,7 +60,9 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getSettings();
+    const user = this.authService.getCurrentUser();
+    this.getSettings(user.username);
+    // this.flashMessage.show(this.currentUser.username, {cssClass: 'alert-danger', timeout: 12000});    
   }
 
   // //change the value of hideRePw to show/hide second pw field
@@ -114,8 +116,9 @@ export class SettingsComponent implements OnInit {
   }
 
   //load existing settings into vars to act as placeholders
-  getSettings() {
-    this.authService.getOneProfile(this.currentUser.id).subscribe(profile => {
+  getSettings(uname) {
+    // const uid = user.id;
+    this.authService.getProfileByUsername(uname).subscribe(profile => {
       if(profile.success){
         if(profile.user.name){this.name = profile.user.name;} // Set components name var to db entry
         else if(!this.name){this.name = this._plName} //set to placeholder if no name in db
@@ -126,7 +129,7 @@ export class SettingsComponent implements OnInit {
         if(profile.user.imgLink){this.imgLink = profile.user.imgLink;} // Set component's imgLink var to db entry
         else if(!this.imgLink){this.imgLink = this._plImgLink} //set to placeholder if no bio in db                
       } else{
-        this.flashMessage.show('Settings data error', {cssClass: 'alert-danger', timeout: 3000});
+        this.flashMessage.show(profile.message, {cssClass: 'alert-danger', timeout: 3000});
       }
     })
   }
@@ -222,7 +225,7 @@ export class SettingsComponent implements OnInit {
     //call updateSetiings function to update the db with the tempUser passed in
     this.authService.updateSettings(tempUser).subscribe(data => {
       if (data.success){
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/profile',this.username]);
       }
       else{
         this.flashMessage.show('database update error', {cssClass: 'alert-danger', timeout: 3000});

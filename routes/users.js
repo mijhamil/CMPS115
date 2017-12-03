@@ -137,6 +137,24 @@ router.post('/authenticate', (req, res, next) => {
   });
 });
 
+//get profile info based on username in users.js
+router.get('/profile/:username', (req, res, next) => {
+  const username = req.params.username;
+
+  User.getUserByUsername(username, (err,user) => {
+    if(err){
+      return res.json({ success: false, message: err }); 
+    }
+    else{
+      if(!user) {
+        return res.json({ success: false, message: 'User not found.'});
+      } else {
+        return res.json({ success: true, user: user});
+      }
+    }
+  });
+});
+
 // Single User Profile
 //possibly add "passport.authenticate('jwt', {session:false})," after "router.get('/profile', "
 router.get('/profile/:_id', (req, res, next) => {
