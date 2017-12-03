@@ -86,7 +86,8 @@ export class PostsComponent implements OnInit {
       payrate: this.payrate,
       details: this.details,
       createdBy: this.user.displayname,
-      email: this.user.email
+      email: this.user.email,
+      status: 'available'
     }
 
     this.postService.newPost(post).subscribe(data => {

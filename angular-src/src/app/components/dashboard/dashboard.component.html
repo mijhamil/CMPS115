@@ -1,5 +1,8 @@
 <br />
-<h1>All Jobs<button type="postButton" class="btn btn-success" (click)="post()">Post A Job</button></h1>
+<h1>All Jobs
+  <a [routerLink]="['/posts']"><button type="postButton" name="postButton" class="btn btn-success">Post A Job</button></a>
+  <a [routerLink]="['/manage-jobs/']"><button type="manageButton" name="manageButton" class="btn btn-success">Manage Jobs</button></a>
+</h1>
 <hr>
 
 <div *ngIf="!newPost">

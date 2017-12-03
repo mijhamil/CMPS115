@@ -16,7 +16,8 @@ router.post('/newPost', (req, res) => {
     payrate: req.body.payrate,
     details: req.body.details,
     createdBy: req.body.createdBy,
-    email: req.body.email
+    email: req.body.email,
+    status: req.body.status
   });
   post.save((err)=> {
     if (err) {

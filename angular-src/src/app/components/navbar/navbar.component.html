@@ -8,7 +8,7 @@
   <div class="collapse navbar-collapse" id="navbarColor02">
     <ul class="navbar-nav ml-auto">
       <li class = "nav-item" *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
-        <a class="nav-link" [routerLink]="['/manage-jobs']">Manage Jobs</a>
+        <a class="nav-link" [routerLink]="['/dashboard']">Jobs</a>
       </li>
       <li class = "nav-item" *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}">
         <a class="nav-link" [routerLink]="['/profile']">Profile</a>
