@@ -103,7 +103,7 @@ router.delete('/deletePost/:username/:id', (req, res) => {
 });
 
 // Updates post with matching id
-router.put('/updatePost', (req, res) => {
+router.put('/updatePost/:username', (req, res) => {
   if(!req.body._id) {
     res.json({succes: false, message: 'No post ID supplied'});
   } else {
@@ -114,28 +114,32 @@ router.put('/updatePost', (req, res) => {
           if(!post) {
             res.json({success: false, message: 'No post with supplied ID found.'})
           } else{
-            post.title = req.body.title;
-            post.location = req.body.location;
-            post.locationstyle = req.body.locationstyle;
-            post.date = req.body.date;
-            post.time = req.body.time;
-            post.payrate = req.body.payrate;
-            post.details = req.body.details;
-            post.save((err) => {
-              if(err) {
-                if(err.errors) {
-                  res.json({success: false, message: 'Something went wrong.'})
-                } else {
-                  res.json({success: false, message: err});
-                }
-              } else {
-                res.json({success: true, message: 'Post updated.'});
-              }
-            });
+            if(req.params.username !== post.createdBy) {
+              res.json({success: false, message: 'Unauthorized to edit this post.'})
+            } else {
+                post.title = req.body.title;
+                post.location = req.body.location;
+                post.locationstyle = req.body.locationstyle;
+                post.date = req.body.date;
+                post.time = req.body.time;
+                post.payrate = req.body.payrate;
+                post.details = req.body.details;
+                post.save((err) => {
+                  if(err) {
+                    if(err.errors) {
+                      res.json({success: false, message: 'Something went wrong.'})
+                    } else {
+                      res.json({success: false, message: err});
+                    }
+                  } else {
+                      res.json({success: true, message: 'Post updated.'});
+                    }
+              });
+            }
           }
         }
-      })
-  }
+      });
+    }
 });
 
 module.exports = router;

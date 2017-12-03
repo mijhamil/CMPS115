@@ -93,19 +93,20 @@ export class EditPostComponent implements OnInit {
   savePost() {
     this.processing = true;
 
+    console.log(this.time);
     // Combine date and time input to store as complete date object
     this.post.date = this.datePipe.transform(this.post.date, 'yyyy-MM-dd') + ' ' + this.time;
     this.post.date = new Date(this.post.date);
 
+    console.log(this.post.date);
+
     if(!(Object.keys(this.location).length === 0 && (this.location).constructor == Object)) {
-      console.log(this.location);
-      console.log(typeof this.location);
       this.locationStringify();
       this.post.location = this.location;
       this.post.locationstyle = this.locationstyle;
     }
     window.scrollTo(0, 0);
-    this.postService.updatePost(this.post).subscribe(data => {
+    this.postService.updatePost(this.user, this.post).subscribe(data => {
       if(!data.success) {
         this.flashMessage.show(data.message, {cssClass: 'alert-danger',timeout: 5000});
         this.processing = false;

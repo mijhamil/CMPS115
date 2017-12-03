@@ -15,7 +15,7 @@
       <input [disabled]="processing" type="date" [ngModel] ="post.date | date:'yyyy-MM-dd'" (ngModelChange)="post.date = $event" name="date" class="form-control" required>
 
       <label>Time</label>
-      <input [disabled]="processing" type="time" [ngModel] ="time" name="time" placeholder = "12:00 PM" class="form-control" required>
+      <input [disabled]="processing" type="time" [(ngModel)] ="time" name="time" placeholder = "12:00 PM" class="form-control" required>
 
       <label>Pay rate</label>
       <div class="input-group">
