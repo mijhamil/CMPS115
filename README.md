@@ -14,6 +14,10 @@
 
 `ng serve (inside the angular CLI)`
 
+### To use the webapp visit
+
+`http://localhost:8080` in a web browser
+
 ## Development
 
 ### Creating a new component
