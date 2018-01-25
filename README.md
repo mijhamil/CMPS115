@@ -30,11 +30,11 @@
 
     `{path:'<new path here>', component: <component name>Component}`
     
-3. import router into current pre path if not already inside <pre path>.component.ts
+3. import router into current pre path if not already inside `<pre path>.component.ts`
 
    `import {Router} from'@angular/router';`
    
-4. set the router inside the pre path constructor at <pre path>.component.ts
+4. set the router inside the pre path constructor at `<pre path>.component.ts`
 
     `private router:Router`
     
