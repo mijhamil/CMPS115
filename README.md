@@ -1,4 +1,5 @@
 # ChoreDash
+### A MEAN stack odd job posting web application written by Kevin Ajili, Grant Chen, Mike Hamilton, Vikram Melkote, and Jimmy Nguyen
 
 ## Usage
 
@@ -16,7 +17,7 @@
 
 ### To use the webapp visit
 
-`http://localhost:8080` in a web browser
+`http://localhost:4200` in a web browser
 
 ## Development
 
