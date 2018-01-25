@@ -26,7 +26,7 @@
 
 1. Create a new component
 
-2. Create a new path in inside app.module.ts using
+2. Create a new path in inside `app.module.ts` using
 
     `{path:'<new path here>', component: <component name>Component}`
     
