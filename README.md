@@ -1,5 +1,5 @@
 # ChoreDash
-### A MEAN stack odd job posting web application written by Kevin Ajili, Grant Chen, Mike Hamilton, Vikram Melkote, and Jimmy Nguyen
+### A MEAN stack odd job posting web application written by Kevin Ajili, Grant Lin, Mike Hamilton, Vikram Melkote, and Jimmy Nguyen
 
 ## Usage
 
