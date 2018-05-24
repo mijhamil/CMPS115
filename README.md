@@ -1,6 +1,17 @@
 # ChoreDash
 ### A MEAN stack odd job posting web application written by Kevin Ajili, Grant Lin, Mike Hamilton, Vikram Melkote, and Jimmy Nguyen
 
+## Demo
+
+### Login
+![Login/Registration](https://raw.githubusercontent.com/Vikrammel/EasyTrage/master/scrumdocs/demo/bad_login_demo.gif)
+
+### Trade Suggestions
+![Trade Suggestions](https://raw.githubusercontent.com/Vikrammel/EasyTrage/master/scrumdocs/demo/other_trade_modals_demo.gif)
+
+### Arbitrage Trade Simulation
+![Trade Simulation](https://raw.githubusercontent.com/Vikrammel/EasyTrage/master/scrumdocs/demo/full_abtirage_simulation_demo.gif)
+
 ## Usage
 
 ### To start mongodb
