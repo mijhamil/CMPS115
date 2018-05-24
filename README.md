@@ -3,14 +3,14 @@
 
 ## Demo
 
-### Login
-![Login/Registration](https://raw.githubusercontent.com/Vikrammel/EasyTrage/master/scrumdocs/demo/bad_login_demo.gif)
+### Login/Registration
+![Login/Registration](https://raw.githubusercontent.com/mijhamil/CMPS115/master/Scrum%20Documents/home%20and%20registration%2C%20login%2C%20profile.gif)
 
-### Trade Suggestions
-![Trade Suggestions](https://raw.githubusercontent.com/Vikrammel/EasyTrage/master/scrumdocs/demo/other_trade_modals_demo.gif)
+### Job Posting
+![Posting New Job](https://raw.githubusercontent.com/mijhamil/CMPS115/master/Scrum%20Documents/posting%20and%20editing%20post%202.gif)
 
-### Arbitrage Trade Simulation
-![Trade Simulation](https://raw.githubusercontent.com/Vikrammel/EasyTrage/master/scrumdocs/demo/full_abtirage_simulation_demo.gif)
+### Profile/Settings
+![Profile/Settings](https://raw.githubusercontent.com/mijhamil/CMPS115/master/Scrum%20Documents/profile%20and%20settings.gif)
 
 ## Usage
 
